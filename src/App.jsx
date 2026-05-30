@@ -357,7 +357,7 @@ function HomePage() {
           </label>
           <label>
             Telefonnummer
-            <input name="phone" type="tel" placeholder="50 22 30 00" />
+            <input name="phone" type="tel" placeholder="12 34 56 78" />
             <ValidationError field="phone" errors={state.errors} />
           </label>
           <label>
