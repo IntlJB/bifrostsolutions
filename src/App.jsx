@@ -22,20 +22,26 @@ const packages = [
     name: 'Design',
     price: '2.000,-',
     featured: true,
-    note: 'Fast pris inkl. design, email og DNS',
+    note: 'Fast pris for professionelt webdesign',
     features: [
       'Responsivt webdesign',
+      'Tydelig sidestruktur',
+      'Tekster målrettet din virksomhed',
+      'Kontaktklar forside',
+      'Klar visuel identitet',
+    ],
+  },
+  {
+    name: 'Drift og opsætning',
+    price: '2.000,-',
+    note: 'Opstart + 1.500,- pr. 3. måned',
+    features: [
       'Opsætning af email',
       'DNS og domænehjælp',
       'Kontaktformular',
       'Klar og professionel lancering',
+      'Vedligehold og små rettelser',
     ],
-  },
-  {
-    name: 'Design og Drift',
-    price: '2.000,-',
-    note: 'Opstart + 1.500,- pr. 3. måned',
-    features: ['Vedligehold af siden', 'Små rettelser', 'Teknisk overblik', 'Hjælp ved fejl'],
   },
   {
     name: 'Udvidelse',
@@ -88,7 +94,7 @@ const infoItems = [
     category: 'Guide',
     title: 'Hvad får du med en starter-hjemmeside til 2.000,-?',
     excerpt:
-      'Du får en enkel, professionel hjemmeside med design, email, DNS-hjælp, kontaktformular og lancering. Pakken er lavet til mindre virksomheder, der vil online hurtigt uden at betale for en stor specialløsning fra dag ét.',
+      'Du får en enkel, professionel hjemmeside med webdesign, tydelig struktur, kontaktmulighed og et udtryk der matcher din virksomhed. Pakken er lavet til mindre virksomheder, der vil online hurtigt uden at betale for en stor specialløsning fra dag ét.',
     time: '3 min',
   },
   {
@@ -105,6 +111,13 @@ const infoItems = [
       'En god hjemmeside skal ikke bare se pæn ud. Den skal hjælpe besøgende med hurtigt at forstå dit tilbud, finde dine kontaktmuligheder og sende en henvendelse uden friktion.',
     time: '3 min',
   },
+]
+
+const mobileCategories = [
+  { title: 'Ydelser', text: 'Se hvad der indgår i hjemmesiden.', href: '/ydelser' },
+  { title: 'Pris', text: 'Få overblik over Design, Drift og opsætning.', href: '/pris' },
+  { title: 'Fordele', text: 'Læs hvorfor opsætningen bag siden betyder noget.', href: '/fordele' },
+  { title: 'Info', text: 'Korte forklaringer om hjemmeside, opstart og drift.', href: '/info' },
 ]
 
 function LogoMark() {
@@ -127,11 +140,18 @@ function Nav() {
         </span>
         <span>Bifrostsolutions</span>
       </a>
-      <div className="navLinks">
+      <div className="navLinks navLinksDesktop">
         <a href="/#services">Ydelser</a>
         <a href="/#packages">Pris</a>
         <a href="/#platform">Fordele</a>
         <a href="/#info">Info</a>
+        <a href="/#contact">Kontakt</a>
+      </div>
+      <div className="navLinks navLinksMobile">
+        <a href="/ydelser">Ydelser</a>
+        <a href="/pris">Pris</a>
+        <a href="/fordele">Fordele</a>
+        <a href="/info">Info</a>
         <a href="/#contact">Kontakt</a>
       </div>
       <a className="navCta" href="/#contact">
@@ -158,6 +178,195 @@ function Footer() {
       </div>
       <p className="footerCompany">Bifrostsolutions · CVR 46504372</p>
     </footer>
+  )
+}
+
+function ContactSection({ compact = false }) {
+  const [state, handleSubmit] = useForm('xykvvayz')
+
+  return (
+    <section className={`contactSection ${compact ? 'contactSectionCompact' : ''}`} id="contact">
+      <div className="contactCopy">
+        <span className="eyebrow">Kontakt</span>
+        <h2>Vil du have en hjemmeside til 2.000,-?</h2>
+        <p>
+          Skriv kort hvad din virksomhed laver, og om du allerede har domæne og email. Så
+          vender vi tilbage med næste skridt.
+        </p>
+      </div>
+      <form className="contactForm" onSubmit={handleSubmit}>
+        <label>
+          Navn
+          <input name="name" type="text" placeholder="Dit navn" required />
+          <ValidationError field="name" errors={state.errors} />
+        </label>
+        <label>
+          Email
+          <input name="email" type="email" placeholder="din@email.dk" required />
+          <ValidationError field="email" errors={state.errors} />
+        </label>
+        <label>
+          Telefonnummer
+          <input name="phone" type="tel" placeholder="12 34 56 78" />
+          <ValidationError field="phone" errors={state.errors} />
+        </label>
+        <label>
+          Hvad har du brug for?
+          <select name="need" defaultValue="starter">
+            <option value="starter">Starter-hjemmeside til 2.000,-</option>
+            <option value="setup">Drift og opsætning</option>
+            <option value="contact">Email og kontaktformular</option>
+            <option value="redesign">Redesign af eksisterende side</option>
+          </select>
+        </label>
+        <label>
+          Besked
+          <textarea name="message" rows="5" placeholder="Skriv lidt om projektet" required></textarea>
+          <ValidationError field="message" errors={state.errors} />
+        </label>
+        <ValidationError errors={state.errors} />
+        <button type="submit" disabled={state.submitting || state.succeeded}>
+          {state.submitting ? 'Sender...' : 'Send besked'}
+        </button>
+        {state.succeeded && <p className="formStatus">Tak. Din besked er sendt - vi vender tilbage hurtigst muligt.</p>}
+      </form>
+    </section>
+  )
+}
+
+function ServicesSection() {
+  return (
+    <section className="section" id="services">
+      <div className="sectionIntro">
+        <span className="eyebrow">Ydelser</span>
+        <h2>En hjemmesidepakke med både udtryk og opsætning.</h2>
+      </div>
+      <div className="serviceGrid">
+        {services.map((service, index) => (
+          <article className="serviceCard" key={service.title} style={{ '--delay': `${index * 80}ms` }}>
+            <span className="cardIndex">0{index + 1}</span>
+            <h3>{service.title}</h3>
+            <p>{service.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function PackagesSection() {
+  return (
+    <section className="section splitSection" id="packages">
+      <div className="sectionIntro">
+        <span className="eyebrow">Fast starterpris</span>
+        <h2>Start enkelt. Udvid når behovet opstår.</h2>
+        <p>Alle priser er inkl. moms.</p>
+      </div>
+      <div className="packageGrid">
+        {packages.map((item) => (
+          <article className={`packageCard ${item.featured ? 'featured' : ''}`} key={item.name}>
+            <h3>{item.name}</h3>
+            <p className="price">{item.price}</p>
+            <p className="packageNote">{item.note}</p>
+            <ul>
+              {item.features.map((feature) => (
+                <li key={feature}>{feature}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function BenefitsSection() {
+  return (
+    <section className="section platformSection" id="platform">
+      <div className="sectionIntro">
+        <span className="eyebrow">Fordele bag løsningen</span>
+        <h2>Professionel opsætning forklaret i almindeligt sprog.</h2>
+        <p>
+          Du behøver ikke kende værktøjerne bag. Det vigtigste er, at siden bliver hurtig,
+          stabil, nem at opdatere og mere pålidelig i hverdagen.
+        </p>
+      </div>
+      <div className="benefitGrid">
+        {platformBenefits.map((benefit) => (
+          <article className="benefitCard" key={benefit.label}>
+            <h3>{benefit.label}</h3>
+            <p>{benefit.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function SeoSection() {
+  return (
+    <section className="section seoSection" id="billig-hjemmeside">
+      <div className="sectionIntro">
+        <span className="eyebrow">Billig hjemmeside og komplet drift</span>
+        <h2>En enkel vej til en professionel hjemmeside med fast opstartspris.</h2>
+        <p>
+          Bifrostsolutions hjælper virksomheder, der søger en billig hjemmeside uden at gå på
+          kompromis med det professionelle udtryk. Du får webdesign, teknisk opsætning,
+          kontaktformular, email, DNS, lancering og mulighed for komplet hosting og drift.
+        </p>
+      </div>
+      <div className="seoGrid">
+        {seoHighlights.map((item) => (
+          <article className="seoCard" key={item.title}>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function InfoSection() {
+  return (
+    <section className="section blogSection" id="info">
+      <div className="sectionIntro">
+        <span className="eyebrow">Info</span>
+        <h2>Korte forklaringer til dig der vil online uden bøvl.</h2>
+      </div>
+      <div className="blogGrid">
+        {infoItems.map((item) => (
+          <article className="blogCard" key={item.title} tabIndex="0">
+            <div className="blogMeta">
+              <span>{item.category}</span>
+              <span>{item.time}</span>
+            </div>
+            <h3>{item.title}</h3>
+            <p>{item.excerpt}</p>
+            <span className="bridgeHover" aria-hidden="true">
+              <span className="bridgeArch"></span>
+              <span className="bridgeDeck"></span>
+              <span className="bridgePost postOne"></span>
+              <span className="bridgePost postTwo"></span>
+              <span className="bridgePost postThree"></span>
+            </span>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function MobileCategoryNav() {
+  return (
+    <section className="mobileCategoryNav" aria-label="Kategorier">
+      {mobileCategories.map((item) => (
+        <a href={item.href} className="mobileCategoryCard" key={item.title}>
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+        </a>
+      ))}
+    </section>
   )
 }
 
@@ -193,9 +402,7 @@ function PolicyPage({ type }) {
               Hjemmesiden bruger kun nødvendige tekniske funktioner for at siden kan vises og
               fungere korrekt.
             </p>
-            <p>
-              Der anvendes ikke marketingcookies eller skjult tracking i denne version af siden.
-            </p>
+            <p>Der anvendes ikke marketingcookies eller skjult tracking i denne version af siden.</p>
             <p>
               Hvis der senere tilføjes statistik, annoncering eller tredjepartsfunktioner,
               opdateres cookiepolitikken, så det tydeligt fremgår hvad der bruges og hvorfor.
@@ -211,9 +418,30 @@ function PolicyPage({ type }) {
   )
 }
 
-function HomePage() {
-  const [state, handleSubmit] = useForm('xykvvayz')
+function CategoryPage({ type }) {
+  const content = {
+    services: <ServicesSection />,
+    packages: <PackagesSection />,
+    benefits: (
+      <>
+        <BenefitsSection />
+        <SeoSection />
+      </>
+    ),
+    info: <InfoSection />,
+  }
 
+  return (
+    <main>
+      <Nav />
+      <div className="categoryPage">{content[type]}</div>
+      <ContactSection compact />
+      <Footer />
+    </main>
+  )
+}
+
+function HomePage() {
   return (
     <main>
       <Nav />
@@ -260,171 +488,47 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="section" id="services">
-        <div className="sectionIntro">
-          <span className="eyebrow">Ydelser</span>
-          <h2>En hjemmesidepakke med både udtryk og opsætning.</h2>
-        </div>
-        <div className="serviceGrid">
-          {services.map((service, index) => (
-            <article className="serviceCard" key={service.title} style={{ '--delay': `${index * 80}ms` }}>
-              <span className="cardIndex">0{index + 1}</span>
-              <h3>{service.title}</h3>
-              <p>{service.text}</p>
-            </article>
-          ))}
-        </div>
-      </section>
+      <MobileCategoryNav />
 
-      <section className="section splitSection" id="packages">
-        <div className="sectionIntro">
-          <span className="eyebrow">Fast starterpris</span>
-          <h2>Start enkelt. Udvid når behovet opstår.</h2>
-          <p>Alle priser er inkl. moms.</p>
-        </div>
-        <div className="packageGrid">
-          {packages.map((item) => (
-            <article className={`packageCard ${item.featured ? 'featured' : ''}`} key={item.name}>
-              <h3>{item.name}</h3>
-              <p className="price">{item.price}</p>
-              <p className="packageNote">{item.note}</p>
-              <ul>
-                {item.features.map((feature) => (
-                  <li key={feature}>{feature}</li>
-                ))}
-              </ul>
-            </article>
-          ))}
-        </div>
-      </section>
+      <div className="desktopHomeSections">
+        <ServicesSection />
+        <PackagesSection />
+        <BenefitsSection />
+        <SeoSection />
+        <InfoSection />
+      </div>
 
-      <section className="section platformSection" id="platform">
-        <div className="sectionIntro">
-          <span className="eyebrow">Fordele bag løsningen</span>
-          <h2>Professionel opsætning forklaret i almindeligt sprog.</h2>
-          <p>
-            Du behøver ikke kende værktøjerne bag. Det vigtigste er, at siden bliver hurtig,
-            stabil, nem at opdatere og mere pålidelig i hverdagen.
-          </p>
-        </div>
-        <div className="benefitGrid">
-          {platformBenefits.map((benefit) => (
-            <article className="benefitCard" key={benefit.label}>
-              <h3>{benefit.label}</h3>
-              <p>{benefit.text}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="section seoSection" id="billig-hjemmeside">
-        <div className="sectionIntro">
-          <span className="eyebrow">Billig hjemmeside og komplet drift</span>
-          <h2>En enkel vej til en professionel hjemmeside med fast opstartspris.</h2>
-          <p>
-            Bifrostsolutions hjælper virksomheder, der søger en billig hjemmeside uden at gå på
-            kompromis med det professionelle udtryk. Du får webdesign, teknisk opsætning,
-            kontaktformular, email, DNS, lancering og mulighed for komplet hosting og drift.
-          </p>
-        </div>
-        <div className="seoGrid">
-          {seoHighlights.map((item) => (
-            <article className="seoCard" key={item.title}>
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="section blogSection" id="info">
-        <div className="sectionIntro">
-          <span className="eyebrow">Info</span>
-          <h2>Korte forklaringer til dig der vil online uden bøvl.</h2>
-        </div>
-        <div className="blogGrid">
-          {infoItems.map((item) => (
-            <article className="blogCard" key={item.title} tabIndex="0">
-              <div className="blogMeta">
-                <span>{item.category}</span>
-                <span>{item.time}</span>
-              </div>
-              <h3>{item.title}</h3>
-              <p>{item.excerpt}</p>
-              <span className="bridgeHover" aria-hidden="true">
-                <span className="bridgeArch"></span>
-                <span className="bridgeDeck"></span>
-                <span className="bridgePost postOne"></span>
-                <span className="bridgePost postTwo"></span>
-                <span className="bridgePost postThree"></span>
-              </span>
-              <a href="#contact" aria-label={`Spørg om: ${item.title}`}>
-                Spørg om dette
-              </a>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="contactSection" id="contact">
-        <div className="contactCopy">
-          <span className="eyebrow">Kontakt</span>
-          <h2>Vil du have en hjemmeside til 2.000,-?</h2>
-          <p>
-            Skriv kort hvad din virksomhed laver, og om du allerede har domæne og email.
-            Så vender vi tilbage med næste skridt.
-          </p>
-        </div>
-        <form className="contactForm" onSubmit={handleSubmit}>
-          <label>
-            Navn
-            <input name="name" type="text" placeholder="Dit navn" required />
-            <ValidationError field="name" errors={state.errors} />
-          </label>
-          <label>
-            Email
-            <input name="email" type="email" placeholder="din@email.dk" required />
-            <ValidationError field="email" errors={state.errors} />
-          </label>
-          <label>
-            Telefonnummer
-            <input name="phone" type="tel" placeholder="12 34 56 78" />
-            <ValidationError field="phone" errors={state.errors} />
-          </label>
-          <label>
-            Hvad har du brug for?
-            <select name="need" defaultValue="starter">
-              <option value="starter">Starter-hjemmeside til 2.000,-</option>
-              <option value="setup">Opsætning og lancering</option>
-              <option value="contact">Email og kontaktformular</option>
-              <option value="redesign">Redesign af eksisterende side</option>
-            </select>
-          </label>
-          <label>
-            Besked
-            <textarea name="message" rows="5" placeholder="Skriv lidt om projektet" required></textarea>
-            <ValidationError field="message" errors={state.errors} />
-          </label>
-          <ValidationError errors={state.errors} />
-          <button type="submit" disabled={state.submitting || state.succeeded}>
-            {state.submitting ? 'Sender...' : 'Send besked'}
-          </button>
-          {state.succeeded && <p className="formStatus">Tak. Din besked er sendt - vi vender tilbage hurtigst muligt.</p>}
-        </form>
-      </section>
-
+      <ContactSection />
       <Footer />
     </main>
   )
 }
 
 function App() {
-  if (window.location.pathname === '/privatlivspolitik') {
+  const path = window.location.pathname
+
+  if (path === '/privatlivspolitik') {
     return <PolicyPage type="privacy" />
   }
 
-  if (window.location.pathname === '/cookiepolitik') {
+  if (path === '/cookiepolitik') {
     return <PolicyPage type="cookies" />
+  }
+
+  if (path === '/ydelser') {
+    return <CategoryPage type="services" />
+  }
+
+  if (path === '/pris') {
+    return <CategoryPage type="packages" />
+  }
+
+  if (path === '/fordele') {
+    return <CategoryPage type="benefits" />
+  }
+
+  if (path === '/info') {
+    return <CategoryPage type="info" />
   }
 
   return <HomePage />

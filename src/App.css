@@ -64,6 +64,11 @@
   gap: 22px;
 }
 
+.navLinksMobile,
+.mobileCategoryNav {
+  display: none;
+}
+
 .navLinks a,
 .secondaryButton,
 .blogCard a {
@@ -267,6 +272,34 @@ h3 {
 .section {
   padding: 86px clamp(20px, 5vw, 72px);
   border-top: 1px solid var(--border);
+}
+
+.mobileCategoryNav {
+  padding: 0 clamp(20px, 5vw, 72px) 42px;
+  gap: 14px;
+}
+
+.mobileCategoryCard {
+  display: block;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--text-muted);
+  padding: 18px;
+  text-decoration: none;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+}
+
+.mobileCategoryCard h3 {
+  margin-bottom: 6px;
+}
+
+.mobileCategoryCard p {
+  margin: 0;
+}
+
+.categoryPage .section {
+  border-top: 0;
 }
 
 .sectionIntro {
@@ -490,6 +523,10 @@ h3 {
   border-top: 1px solid var(--border);
 }
 
+.contactSectionCompact {
+  background: linear-gradient(180deg, rgba(232, 243, 255, 0.5), #ffffff);
+}
+
 .contactForm {
   display: grid;
   gap: 16px;
@@ -698,6 +735,19 @@ h3 {
     overflow-x: auto;
   }
 
+  .navLinksDesktop {
+    display: none;
+  }
+
+  .navLinksMobile,
+  .mobileCategoryNav {
+    display: grid;
+  }
+
+  .navLinksMobile {
+    grid-template-columns: repeat(5, max-content);
+  }
+
   .heroSection,
   .contactSection {
     grid-template-columns: 1fr;
@@ -705,6 +755,10 @@ h3 {
 
   .heroSection {
     min-height: auto;
+  }
+
+  .desktopHomeSections {
+    display: none;
   }
 
   .serviceGrid,
@@ -742,9 +796,27 @@ h3 {
 
   .heroSection,
   .section,
-  .contactSection {
+  .contactSection,
+  .mobileCategoryNav {
     padding-left: 16px;
     padding-right: 16px;
+  }
+
+  .heroSection {
+    gap: 24px;
+    padding-top: 32px;
+    padding-bottom: 28px;
+  }
+
+  .heroActions {
+    margin-bottom: 22px;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
   }
 
   .heroVisual img {
