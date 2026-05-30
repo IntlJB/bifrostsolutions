@@ -68,6 +68,21 @@ const platformBenefits = [
   },
 ]
 
+const seoHighlights = [
+  {
+    title: 'Billig opstart uden skjulte trin',
+    text: 'Du får en professionel hjemmeside fra 1.500,- inkl. de vigtigste dele for at komme online. Det gør løsningen oplagt til små virksomheder, selvstændige og nye projekter, der vil i gang uden et stort startbudget.',
+  },
+  {
+    title: 'Komplet hosting og drift',
+    text: 'Hjemmesiden kan samles med drift, vedligehold og teknisk overblik, så du ikke selv skal bruge tid på opsætning, fejlretning eller små løbende justeringer.',
+  },
+  {
+    title: 'Hjemmeside klar til kunder',
+    text: 'Siden bygges med klare budskaber, kontaktformular, mobilvenligt design og struktur, der hjælper besøgende med hurtigt at forstå hvem du er, hvad du tilbyder og hvordan de kontakter dig.',
+  },
+]
+
 const infoItems = [
   {
     category: 'Guide',
@@ -297,6 +312,26 @@ function HomePage() {
             <article className="benefitCard" key={benefit.label}>
               <h3>{benefit.label}</h3>
               <p>{benefit.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="section seoSection" id="billig-hjemmeside">
+        <div className="sectionIntro">
+          <span className="eyebrow">Billig hjemmeside og komplet drift</span>
+          <h2>En enkel vej til en professionel hjemmeside med fast opstartspris.</h2>
+          <p>
+            Bifrostsolutions hjælper virksomheder, der søger en billig hjemmeside uden at gå på
+            kompromis med det professionelle udtryk. Du får webdesign, teknisk opsætning,
+            kontaktformular, email, DNS, lancering og mulighed for komplet hosting og drift.
+          </p>
+        </div>
+        <div className="seoGrid">
+          {seoHighlights.map((item) => (
+            <article className="seoCard" key={item.title}>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
             </article>
           ))}
         </div>

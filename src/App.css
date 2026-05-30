@@ -277,6 +277,7 @@ h3 {
 .serviceGrid,
 .packageGrid,
 .benefitGrid,
+.seoGrid,
 .blogGrid {
   display: grid;
   gap: 18px;
@@ -284,6 +285,7 @@ h3 {
 
 .serviceGrid,
 .packageGrid,
+.seoGrid,
 .blogGrid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
@@ -295,6 +297,7 @@ h3 {
 .serviceCard,
 .packageCard,
 .benefitCard,
+.seoCard,
 .blogCard,
 .contactForm {
   border: 1px solid var(--border);
@@ -324,8 +327,13 @@ h3 {
   background: rgba(255, 255, 255, 0.42);
 }
 
+.seoSection {
+  background: linear-gradient(180deg, rgba(232, 243, 255, 0.72), rgba(255, 255, 255, 0.2));
+}
+
 .packageCard,
-.benefitCard {
+.benefitCard,
+.seoCard {
   padding: 28px;
 }
 
@@ -368,6 +376,10 @@ h3 {
 
 .benefitCard {
   min-height: 190px;
+}
+
+.seoCard {
+  min-height: 230px;
 }
 
 .blogCard {
@@ -697,6 +709,7 @@ h3 {
 
   .serviceGrid,
   .packageGrid,
+  .seoGrid,
   .blogGrid,
   .benefitGrid,
   .footerPolicies {
