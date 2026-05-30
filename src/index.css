@@ -1,16 +1,15 @@
 :root {
-  --bg: #f7fbff;
+  --bg: #f7f9fc;
   --surface: #ffffff;
-  --text-strong: #111c2e;
-  --text-muted: #526174;
-  --text-soft: #8290a3;
-  --accent: #0a84ff;
-  --accent-dark: #0071e3;
-  --accent-soft: #e8f3ff;
-  --border: #d8e8f8;
-  --border-strong: #bed3ea;
+  --ink: #101828;
+  --muted: #5f6d7e;
+  --soft: #eef4ff;
+  --accent: #1b5ed2;
+  --accent-dark: #1348a4;
+  --line: #e3e9f2;
+  --line-strong: #cfd8e6;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  color: var(--text-muted);
+  color: var(--muted);
   background: var(--bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -30,15 +29,13 @@ body {
   min-width: 320px;
   margin: 0;
   background:
-    radial-gradient(circle at 18% 8%, rgba(10, 132, 255, 0.11), transparent 27rem),
-    radial-gradient(circle at 90% 14%, rgba(90, 200, 250, 0.14), transparent 30rem),
-    linear-gradient(180deg, #fbfdff 0%, #eef7ff 44%, #ffffff 100%);
+    linear-gradient(180deg, rgba(238, 244, 255, 0.92) 0%, rgba(255, 255, 255, 0.96) 42%),
+    #ffffff;
 }
 
 button,
 input,
-textarea,
-select {
+textarea {
   font: inherit;
 }
 
@@ -47,6 +44,6 @@ img {
 }
 
 ::selection {
-  background: rgba(10, 132, 255, 0.18);
-  color: var(--text-strong);
+  background: rgba(27, 94, 210, 0.18);
+  color: var(--ink);
 }
