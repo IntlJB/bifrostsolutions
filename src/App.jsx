@@ -141,6 +141,7 @@ function Footer() {
           <a href="/cookiepolitik">Cookiepolitik</a>
         </div>
       </div>
+      <p className="footerCompany">Bifrostsolutions · CVR 46504372</p>
     </footer>
   )
 }
@@ -338,11 +339,6 @@ function HomePage() {
             Skriv kort hvad din virksomhed laver, og om du allerede har domæne og email.
             Så vender vi tilbage med næste skridt.
           </p>
-          <div className="contactDetails" aria-label="Kontaktoplysninger">
-            <a href="tel:+4550223000">Tlf. 50 22 30 00</a>
-            <a href="mailto:Jonas.Brodersen@Live.dk">Jonas.Brodersen@Live.dk</a>
-            <span>Jonas Brodersen · CVR 46504372</span>
-          </div>
         </div>
         <form className="contactForm" onSubmit={handleSubmit}>
           <label>
