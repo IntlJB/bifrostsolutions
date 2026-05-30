@@ -551,6 +551,23 @@ h3 {
   text-decoration: none;
 }
 
+.footerLinks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 18px;
+  font-weight: 850;
+}
+
+.footerLinks a {
+  color: var(--accent-dark);
+  text-decoration: none;
+}
+
+.footerLinks a:hover {
+  text-decoration: underline;
+}
+
 .footer {
   padding: 42px clamp(20px, 5vw, 72px);
   border-top: 1px solid var(--border);
@@ -597,6 +614,32 @@ h3 {
 
 .footerPolicies p:last-child {
   margin-bottom: 0;
+}
+
+.policyPage {
+  max-width: 920px;
+  min-height: calc(100svh - 250px);
+  padding: clamp(64px, 8vw, 108px) clamp(20px, 5vw, 72px);
+}
+
+.policyPage h1 {
+  margin-bottom: 24px;
+}
+
+.policyContent {
+  display: grid;
+  gap: 18px;
+  max-width: 760px;
+  margin-bottom: 30px;
+}
+
+.policyContent p {
+  color: var(--text-muted);
+  font-size: 1.08rem;
+}
+
+.policyBack {
+  display: inline-flex;
 }
 
 @keyframes fadeUp {
@@ -674,8 +717,10 @@ h3 {
     flex-direction: column;
   }
 
-  .footerContact {
+  .footerContact,
+  .footerLinks {
     text-align: left;
+    justify-content: flex-start;
   }
 
   .packageCard.featured {

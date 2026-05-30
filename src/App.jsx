@@ -103,29 +103,104 @@ function LogoMark() {
   )
 }
 
-function App() {
-  const [state, handleSubmit] = useForm('xykvvayz')
-
+function Nav() {
   return (
-    <main>
-      <nav className="navbar" aria-label="Primær navigation">
-        <a className="brand" href="#top" aria-label="Bifrostsolutions forside">
+    <nav className="navbar" aria-label="Primær navigation">
+      <a className="brand" href="/" aria-label="Bifrostsolutions forside">
+        <span className="brandMark">
+          <LogoMark />
+        </span>
+        <span>Bifrostsolutions</span>
+      </a>
+      <div className="navLinks">
+        <a href="/#services">Ydelser</a>
+        <a href="/#packages">Pris</a>
+        <a href="/#platform">Fordele</a>
+        <a href="/#info">Info</a>
+        <a href="/#contact">Kontakt</a>
+      </div>
+      <a className="navCta" href="/#contact">
+        Start for 1.500,-
+      </a>
+    </nav>
+  )
+}
+
+function Footer() {
+  return (
+    <footer className="footer">
+      <div className="footerTop">
+        <a className="brand footerBrand" href="/" aria-label="Bifrostsolutions forside">
           <span className="brandMark">
             <LogoMark />
           </span>
           <span>Bifrostsolutions</span>
         </a>
-        <div className="navLinks">
-          <a href="#services">Ydelser</a>
-          <a href="#packages">Pris</a>
-          <a href="#platform">Fordele</a>
-          <a href="#info">Info</a>
-          <a href="#contact">Kontakt</a>
+        <div className="footerLinks">
+          <a href="/privatlivspolitik">Privatlivspolitik</a>
+          <a href="/cookiepolitik">Cookiepolitik</a>
         </div>
-        <a className="navCta" href="#contact">
-          Start for 1.500,-
+      </div>
+    </footer>
+  )
+}
+
+function PolicyPage({ type }) {
+  const isPrivacy = type === 'privacy'
+
+  return (
+    <main>
+      <Nav />
+      <section className="policyPage">
+        <span className="eyebrow">{isPrivacy ? 'Privatliv' : 'Cookies'}</span>
+        <h1>{isPrivacy ? 'Privatlivspolitik' : 'Cookiepolitik'}</h1>
+        {isPrivacy ? (
+          <div className="policyContent">
+            <p>
+              Når du kontakter Bifrostsolutions via formular, email eller telefon, bruger vi
+              dine oplysninger til at besvare din henvendelse og håndtere dialogen om dit
+              projekt.
+            </p>
+            <p>
+              Vi indsamler kun de oplysninger, du selv sender, typisk navn, email,
+              telefonnummer og besked. Oplysningerne bruges ikke til nyhedsbreve eller
+              markedsføring uden særskilt samtykke.
+            </p>
+            <p>
+              Oplysninger deles ikke med uvedkommende. Du kan altid kontakte os for indsigt,
+              rettelse eller sletning af dine oplysninger.
+            </p>
+          </div>
+        ) : (
+          <div className="policyContent">
+            <p>
+              Hjemmesiden bruger kun nødvendige tekniske funktioner for at siden kan vises og
+              fungere korrekt.
+            </p>
+            <p>
+              Der anvendes ikke marketingcookies eller skjult tracking i denne version af siden.
+            </p>
+            <p>
+              Hvis der senere tilføjes statistik, annoncering eller tredjepartsfunktioner,
+              opdateres cookiepolitikken, så det tydeligt fremgår hvad der bruges og hvorfor.
+            </p>
+          </div>
+        )}
+        <a className="secondaryButton policyBack" href="/">
+          Tilbage til forsiden
         </a>
-      </nav>
+      </section>
+      <Footer />
+    </main>
+  )
+}
+
+function HomePage() {
+  const [state, handleSubmit] = useForm('xykvvayz')
+
+  return (
+    <main>
+      <Nav />
 
       <section className="heroSection" id="top">
         <div className="heroCopy">
@@ -307,52 +382,21 @@ function App() {
         </form>
       </section>
 
-      <footer className="footer">
-        <div className="footerTop">
-          <a className="brand footerBrand" href="#top" aria-label="Bifrostsolutions forside">
-            <span className="brandMark">
-              <LogoMark />
-            </span>
-            <span>Bifrostsolutions</span>
-          </a>
-          <div className="footerContact">
-            <a href="tel:+4550223000">50 22 30 00</a>
-            <a href="mailto:Jonas.Brodersen@Live.dk">Jonas.Brodersen@Live.dk</a>
-            <span>Jonas Brodersen · CVR 46504372</span>
-          </div>
-        </div>
-
-        <div className="footerPolicies">
-          <section id="privacy">
-            <h3>Privatlivspolitik</h3>
-            <p>
-              Når du kontakter Bifrostsolutions via formular, email eller telefon, bruger vi
-              dine oplysninger til at besvare din henvendelse og håndtere dialogen om dit
-              projekt. Vi indsamler kun de oplysninger, du selv sender, typisk navn, email,
-              telefonnummer og besked.
-            </p>
-            <p>
-              Oplysninger deles ikke med uvedkommende og bruges ikke til nyhedsbreve uden
-              samtykke. Du kan altid kontakte os for indsigt, rettelse eller sletning af dine
-              oplysninger.
-            </p>
-          </section>
-          <section id="cookies">
-            <h3>Cookiepolitik</h3>
-            <p>
-              Hjemmesiden bruger kun nødvendige tekniske funktioner for at siden kan vises og
-              fungere korrekt. Der anvendes ikke marketingcookies eller skjult tracking i denne
-              version af siden.
-            </p>
-            <p>
-              Hvis der senere tilføjes statistik, annoncering eller tredjepartsfunktioner,
-              opdateres cookiepolitikken, så du tydeligt kan se hvad der bruges og hvorfor.
-            </p>
-          </section>
-        </div>
-      </footer>
+      <Footer />
     </main>
   )
+}
+
+function App() {
+  if (window.location.pathname === '/privatlivspolitik') {
+    return <PolicyPage type="privacy" />
+  }
+
+  if (window.location.pathname === '/cookiepolitik') {
+    return <PolicyPage type="cookies" />
+  }
+
+  return <HomePage />
 }
 
 export default App
