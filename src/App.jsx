@@ -20,7 +20,7 @@ const services = [
 const packages = [
   {
     name: 'Design',
-    price: '1.500,-',
+    price: '2.000,-',
     featured: true,
     note: 'Fast pris inkl. design, email og DNS',
     features: [
@@ -33,8 +33,8 @@ const packages = [
   },
   {
     name: 'Design og Drift',
-    price: '1.500,-',
-    note: 'Opstart og derefter pr. 3. måned',
+    price: '2.000,-',
+    note: 'Opstart + 1.500,- pr. 3. måned',
     features: ['Vedligehold af siden', 'Små rettelser', 'Teknisk overblik', 'Hjælp ved fejl'],
   },
   {
@@ -71,7 +71,7 @@ const platformBenefits = [
 const seoHighlights = [
   {
     title: 'Billig opstart uden skjulte trin',
-    text: 'Du får en professionel hjemmeside fra 1.500,- inkl. de vigtigste dele for at komme online. Det gør løsningen oplagt til små virksomheder, selvstændige og nye projekter, der vil i gang uden et stort startbudget.',
+    text: 'Du får en professionel hjemmeside fra 2.000,- inkl. de vigtigste dele for at komme online. Det gør løsningen oplagt til små virksomheder, selvstændige og nye projekter, der vil i gang uden et stort startbudget.',
   },
   {
     title: 'Komplet hosting og drift',
@@ -86,7 +86,7 @@ const seoHighlights = [
 const infoItems = [
   {
     category: 'Guide',
-    title: 'Hvad får du med en starter-hjemmeside til 1.500,-?',
+    title: 'Hvad får du med en starter-hjemmeside til 2.000,-?',
     excerpt:
       'Du får en enkel, professionel hjemmeside med design, email, DNS-hjælp, kontaktformular og lancering. Pakken er lavet til mindre virksomheder, der vil online hurtigt uden at betale for en stor specialløsning fra dag ét.',
     time: '3 min',
@@ -135,7 +135,7 @@ function Nav() {
         <a href="/#contact">Kontakt</a>
       </div>
       <a className="navCta" href="/#contact">
-        Start for 1.500,-
+        Start for 2.000,-
       </a>
     </nav>
   )
@@ -221,7 +221,7 @@ function HomePage() {
       <section className="heroSection" id="top">
         <div className="heroCopy">
           <span className="eyebrow">Webdesign, email, DNS og lancering</span>
-          <h1>En professionel hjemmeside fra 1.500,- inkl. det tekniske.</h1>
+          <h1>En professionel hjemmeside fra 2.000,- inkl. det tekniske.</h1>
           <p>
             Bifrostsolutions hjælper små virksomheder med en flot, hurtig og driftssikker
             hjemmeside, hvor design, email, DNS og lancering er tænkt med fra starten.
@@ -236,7 +236,7 @@ function HomePage() {
           </div>
           <div className="stats" aria-label="Nøgletal">
             <div>
-              <strong>1.500,-</strong>
+              <strong>2.000,-</strong>
               <span>fast starterpris</span>
             </div>
             <div>
@@ -255,7 +255,7 @@ function HomePage() {
           <div className="statusPanel">
             <span className="pulse"></span>
             Klar til lancering
-            <strong>1.500,-</strong>
+            <strong>2.000,-</strong>
           </div>
         </div>
       </section>
@@ -369,7 +369,7 @@ function HomePage() {
       <section className="contactSection" id="contact">
         <div className="contactCopy">
           <span className="eyebrow">Kontakt</span>
-          <h2>Vil du have en hjemmeside til 1.500,-?</h2>
+          <h2>Vil du have en hjemmeside til 2.000,-?</h2>
           <p>
             Skriv kort hvad din virksomhed laver, og om du allerede har domæne og email.
             Så vender vi tilbage med næste skridt.
@@ -394,7 +394,7 @@ function HomePage() {
           <label>
             Hvad har du brug for?
             <select name="need" defaultValue="starter">
-              <option value="starter">Starter-hjemmeside til 1.500,-</option>
+              <option value="starter">Starter-hjemmeside til 2.000,-</option>
               <option value="setup">Opsætning og lancering</option>
               <option value="contact">Email og kontaktformular</option>
               <option value="redesign">Redesign af eksisterende side</option>
