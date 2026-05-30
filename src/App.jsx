@@ -1,0 +1,388 @@
+import { useState } from 'react'
+import heroImage from './assets/bifrost-hero-ios-blue.png'
+import './App.css'
+
+const services = [
+  {
+    title: 'Design der passer til din virksomhed',
+    text: 'Du får en moderne hjemmeside med tydelig struktur, mobilvenligt layout og tekster, der gør det nemt for kunder at forstå dit tilbud. Fokus er på et professionelt førstehåndsindtryk, korte veje til kontakt og en side, der føles troværdig fra første klik.',
+  },
+  {
+    title: 'Opsætning uden teknisk bøvl',
+    text: 'Du slipper for at skulle holde styr på domæne, email, formularer og lancering selv. Vi sørger for, at de vigtige dele bliver sat rigtigt op, så din hjemmeside er klar til brug og nem at komme videre med senere.',
+  },
+  {
+    title: 'Hurtig og stabil drift',
+    text: 'Siden bygges med fokus på hastighed, stabilitet og en enkel teknisk struktur. Det betyder færre problemer i hverdagen, bedre oplevelse for besøgende og et fundament, der kan udvides når din virksomhed får brug for mere.',
+  },
+]
+
+const packages = [
+  {
+    name: 'Design',
+    price: '1.500,-',
+    featured: true,
+    note: 'Fast pris inkl. design, email og DNS',
+    features: [
+      'Responsivt webdesign',
+      'Opsætning af email',
+      'DNS og domænehjælp',
+      'Kontaktformular',
+      'Klar og professionel lancering',
+    ],
+  },
+  {
+    name: 'Design og Drift',
+    price: '1.500,-',
+    note: 'Opstart og derefter pr. 3. måned',
+    features: ['Vedligehold af siden', 'Små rettelser', 'Teknisk overblik', 'Hjælp ved fejl'],
+  },
+  {
+    name: 'Udvidelse',
+    price: 'Efter aftale',
+    note: 'Når siden skal mere end standard',
+    features: ['Info- eller ekstra sider', 'Særlige funktioner', 'Automatisering', 'Synlighedsforbedringer'],
+  },
+]
+
+const platformBenefits = [
+  {
+    label: 'Hurtig domæneopsætning',
+    text: 'Domænet bliver sat op, så besøgende hurtigt og stabilt lander på den rigtige hjemmeside. Det giver en mere professionel oplevelse og færre tekniske stopklodser.',
+  },
+  {
+    label: 'Stabil lancering',
+    text: 'Hjemmesiden bliver gjort klar på en måde, hvor opdateringer kan håndteres sikkert. Det gør det nemmere at rette, forbedre og videreudvikle siden uden at starte forfra.',
+  },
+  {
+    label: 'Styr på ændringer',
+    text: 'Der holdes orden i arbejdet bag siden, så ændringer kan spores og håndteres fornuftigt. Det giver mere tryghed, hvis noget skal justeres eller rulles tilbage.',
+  },
+  {
+    label: 'Mere pålidelige beskeder',
+    text: 'Kontaktformularen sættes op med fokus på, at henvendelser kommer frem og ikke drukner i unødvendig støj. Det gør siden mere brugbar som salgskanal.',
+  },
+  {
+    label: 'Effektiv udvikling',
+    text: 'Processen er skruet sammen, så små ændringer og forbedringer kan laves hurtigt uden at gå på kompromis med kvaliteten. Det holder prisen nede og tempoet oppe.',
+  },
+]
+
+const infoItems = [
+  {
+    category: 'Guide',
+    title: 'Hvad får du med en starter-hjemmeside til 1.500,-?',
+    excerpt:
+      'Du får en enkel, professionel hjemmeside med design, email, DNS-hjælp, kontaktformular og lancering. Pakken er lavet til mindre virksomheder, der vil online hurtigt uden at betale for en stor specialløsning fra dag ét.',
+    time: '3 min',
+  },
+  {
+    category: 'Teknik',
+    title: 'Hvorfor opsætningen bag hjemmesiden betyder noget',
+    excerpt:
+      'En flot hjemmeside er kun halvdelen af arbejdet. Den tekniske opsætning påvirker hastighed, stabilitet, kontaktformularer og hvor nemt siden kan udvides senere, når virksomheden vokser.',
+    time: '4 min',
+  },
+  {
+    category: 'Kontakt',
+    title: 'Gør det nemt for kunder at tage næste skridt',
+    excerpt:
+      'En god hjemmeside skal ikke bare se pæn ud. Den skal hjælpe besøgende med hurtigt at forstå dit tilbud, finde dine kontaktmuligheder og sende en henvendelse uden friktion.',
+    time: '3 min',
+  },
+]
+
+function LogoMark() {
+  return (
+    <svg viewBox="0 0 48 48" aria-hidden="true" className="logoMark">
+      <path className="logoArch" d="M8 30c6.4-9.4 12.1-14 16-14s9.6 4.6 16 14" />
+      <path className="logoDeck" d="M7 32h34" />
+      <path className="logoPost" d="M14 28v7M24 20v15M34 28v7" />
+      <path className="logoRiver" d="M13 38c3-2 6-2 9 0s6 2 9 0" />
+    </svg>
+  )
+}
+
+function App() {
+  const [formStatus, setFormStatus] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  async function handleSubmit(event) {
+    event.preventDefault()
+    setIsSubmitting(true)
+    setFormStatus('')
+
+    const form = event.currentTarget
+    const formData = new FormData(form)
+    const payload = Object.fromEntries(formData.entries())
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+
+      if (!response.ok) {
+        throw new Error('Kontaktformularen kunne ikke sendes.')
+      }
+
+      setFormStatus('Tak. Din besked er sendt - vi vender tilbage hurtigst muligt.')
+      form.reset()
+    } catch {
+      const subject = encodeURIComponent('Henvendelse fra Bifrostsolutions.dk')
+      const body = encodeURIComponent(
+        `Navn: ${payload.name || ''}\nEmail: ${payload.email || ''}\nTelefon: ${payload.phone || ''}\nBehov: ${payload.need || ''}\n\nBesked:\n${payload.message || ''}`,
+      )
+      window.location.href = `mailto:Jonas.Brodersen@Live.dk?subject=${subject}&body=${body}`
+      setFormStatus('Din mailklient åbnes, så beskeden kan sendes direkte.')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  return (
+    <main>
+      <nav className="navbar" aria-label="Primær navigation">
+        <a className="brand" href="#top" aria-label="Bifrostsolutions forside">
+          <span className="brandMark">
+            <LogoMark />
+          </span>
+          <span>Bifrostsolutions</span>
+        </a>
+        <div className="navLinks">
+          <a href="#services">Ydelser</a>
+          <a href="#packages">Pris</a>
+          <a href="#platform">Fordele</a>
+          <a href="#info">Info</a>
+          <a href="#contact">Kontakt</a>
+        </div>
+        <a className="navCta" href="#contact">
+          Start for 1.500,-
+        </a>
+      </nav>
+
+      <section className="heroSection" id="top">
+        <div className="heroCopy">
+          <span className="eyebrow">Webdesign, email, DNS og lancering</span>
+          <h1>En professionel hjemmeside fra 1.500,- inkl. det tekniske.</h1>
+          <p>
+            Bifrostsolutions hjælper små virksomheder med en flot, hurtig og driftssikker
+            hjemmeside, hvor design, email, DNS og lancering er tænkt med fra starten.
+          </p>
+          <div className="heroActions">
+            <a className="primaryButton" href="#contact">
+              Få en starter-hjemmeside
+            </a>
+            <a className="secondaryButton" href="#packages">
+              Se hvad der er med
+            </a>
+          </div>
+          <div className="stats" aria-label="Nøgletal">
+            <div>
+              <strong>1.500,-</strong>
+              <span>fast starterpris</span>
+            </div>
+            <div>
+              <strong>Email</strong>
+              <span>opsætning inkluderet</span>
+            </div>
+            <div>
+              <strong>DNS</strong>
+              <span>domæne gjort klar</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="heroVisual" aria-label="Illustration af webdesign, DNS og email">
+          <img src={heroImage} alt="Lyst website-dashboard med design, DNS og emailpaneler" />
+          <div className="statusPanel">
+            <span className="pulse"></span>
+            Klar til lancering
+            <strong>1.500,-</strong>
+          </div>
+        </div>
+      </section>
+
+      <section className="section" id="services">
+        <div className="sectionIntro">
+          <span className="eyebrow">Ydelser</span>
+          <h2>En hjemmesidepakke med både udtryk og opsætning.</h2>
+        </div>
+        <div className="serviceGrid">
+          {services.map((service, index) => (
+            <article className="serviceCard" key={service.title} style={{ '--delay': `${index * 80}ms` }}>
+              <span className="cardIndex">0{index + 1}</span>
+              <h3>{service.title}</h3>
+              <p>{service.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="section splitSection" id="packages">
+        <div className="sectionIntro">
+          <span className="eyebrow">Fast starterpris</span>
+          <h2>Start enkelt. Udvid når behovet opstår.</h2>
+          <p>Alle priser er inkl. moms.</p>
+        </div>
+        <div className="packageGrid">
+          {packages.map((item) => (
+            <article className={`packageCard ${item.featured ? 'featured' : ''}`} key={item.name}>
+              <h3>{item.name}</h3>
+              <p className="price">{item.price}</p>
+              <p className="packageNote">{item.note}</p>
+              <ul>
+                {item.features.map((feature) => (
+                  <li key={feature}>{feature}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="section platformSection" id="platform">
+        <div className="sectionIntro">
+          <span className="eyebrow">Fordele bag løsningen</span>
+          <h2>Professionel opsætning forklaret i almindeligt sprog.</h2>
+          <p>
+            Du behøver ikke kende værktøjerne bag. Det vigtigste er, at siden bliver hurtig,
+            stabil, nem at opdatere og mere pålidelig i hverdagen.
+          </p>
+        </div>
+        <div className="benefitGrid">
+          {platformBenefits.map((benefit) => (
+            <article className="benefitCard" key={benefit.label}>
+              <h3>{benefit.label}</h3>
+              <p>{benefit.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="section blogSection" id="info">
+        <div className="sectionIntro">
+          <span className="eyebrow">Info</span>
+          <h2>Korte forklaringer til dig der vil online uden bøvl.</h2>
+        </div>
+        <div className="blogGrid">
+          {infoItems.map((item) => (
+            <article className="blogCard" key={item.title} tabIndex="0">
+              <div className="blogMeta">
+                <span>{item.category}</span>
+                <span>{item.time}</span>
+              </div>
+              <h3>{item.title}</h3>
+              <p>{item.excerpt}</p>
+              <span className="bridgeHover" aria-hidden="true">
+                <span className="bridgeArch"></span>
+                <span className="bridgeDeck"></span>
+                <span className="bridgePost postOne"></span>
+                <span className="bridgePost postTwo"></span>
+                <span className="bridgePost postThree"></span>
+              </span>
+              <a href="#contact" aria-label={`Spørg om: ${item.title}`}>
+                Spørg om dette
+              </a>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="contactSection" id="contact">
+        <div className="contactCopy">
+          <span className="eyebrow">Kontakt</span>
+          <h2>Vil du have en hjemmeside til 1.500,-?</h2>
+          <p>
+            Skriv kort hvad din virksomhed laver, og om du allerede har domæne og email.
+            Så vender vi tilbage med næste skridt.
+          </p>
+          <div className="contactDetails" aria-label="Kontaktoplysninger">
+            <a href="tel:+4550223000">Tlf. 50 22 30 00</a>
+            <a href="mailto:Jonas.Brodersen@Live.dk">Jonas.Brodersen@Live.dk</a>
+            <span>Jonas Brodersen · CVR 46504372</span>
+          </div>
+        </div>
+        <form className="contactForm" onSubmit={handleSubmit}>
+          <label>
+            Navn
+            <input name="name" type="text" placeholder="Dit navn" required />
+          </label>
+          <label>
+            Email
+            <input name="email" type="email" placeholder="din@email.dk" required />
+          </label>
+          <label>
+            Telefonnummer
+            <input name="phone" type="tel" placeholder="50 22 30 00" />
+          </label>
+          <label>
+            Hvad har du brug for?
+            <select name="need" defaultValue="starter">
+              <option value="starter">Starter-hjemmeside til 1.500,-</option>
+              <option value="setup">Opsætning og lancering</option>
+              <option value="contact">Email og kontaktformular</option>
+              <option value="redesign">Redesign af eksisterende side</option>
+            </select>
+          </label>
+          <label>
+            Besked
+            <textarea name="message" rows="5" placeholder="Skriv lidt om projektet" required></textarea>
+          </label>
+          <button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? 'Sender...' : 'Send besked'}
+          </button>
+          {formStatus && <p className="formStatus">{formStatus}</p>}
+        </form>
+      </section>
+
+      <footer className="footer">
+        <div className="footerTop">
+          <a className="brand footerBrand" href="#top" aria-label="Bifrostsolutions forside">
+            <span className="brandMark">
+              <LogoMark />
+            </span>
+            <span>Bifrostsolutions</span>
+          </a>
+          <div className="footerContact">
+            <a href="tel:+4550223000">50 22 30 00</a>
+            <a href="mailto:Jonas.Brodersen@Live.dk">Jonas.Brodersen@Live.dk</a>
+            <span>Jonas Brodersen · CVR 46504372</span>
+          </div>
+        </div>
+
+        <div className="footerPolicies">
+          <section id="privacy">
+            <h3>Privatlivspolitik</h3>
+            <p>
+              Når du kontakter Bifrostsolutions via formular, email eller telefon, bruger vi
+              dine oplysninger til at besvare din henvendelse og håndtere dialogen om dit
+              projekt. Vi indsamler kun de oplysninger, du selv sender, typisk navn, email,
+              telefonnummer og besked.
+            </p>
+            <p>
+              Oplysninger deles ikke med uvedkommende og bruges ikke til nyhedsbreve uden
+              samtykke. Du kan altid kontakte os for indsigt, rettelse eller sletning af dine
+              oplysninger.
+            </p>
+          </section>
+          <section id="cookies">
+            <h3>Cookiepolitik</h3>
+            <p>
+              Hjemmesiden bruger kun nødvendige tekniske funktioner for at siden kan vises og
+              fungere korrekt. Der anvendes ikke marketingcookies eller skjult tracking i denne
+              version af siden.
+            </p>
+            <p>
+              Hvis der senere tilføjes statistik, annoncering eller tredjepartsfunktioner,
+              opdateres cookiepolitikken, så du tydeligt kan se hvad der bruges og hvorfor.
+            </p>
+          </section>
+        </div>
+      </footer>
+    </main>
+  )
+}
+
+export default App
