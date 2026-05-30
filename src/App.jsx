@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useForm, ValidationError } from '@formspree/react'
 import heroImage from './assets/bifrost-hero-ios-blue.png'
 import './App.css'
 
@@ -104,42 +104,7 @@ function LogoMark() {
 }
 
 function App() {
-  const [formStatus, setFormStatus] = useState('')
-  const [isSubmitting, setIsSubmitting] = useState(false)
-
-  async function handleSubmit(event) {
-    event.preventDefault()
-    setIsSubmitting(true)
-    setFormStatus('')
-
-    const form = event.currentTarget
-    const formData = new FormData(form)
-    const payload = Object.fromEntries(formData.entries())
-
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      })
-
-      if (!response.ok) {
-        throw new Error('Kontaktformularen kunne ikke sendes.')
-      }
-
-      setFormStatus('Tak. Din besked er sendt - vi vender tilbage hurtigst muligt.')
-      form.reset()
-    } catch {
-      const subject = encodeURIComponent('Henvendelse fra Bifrostsolutions.dk')
-      const body = encodeURIComponent(
-        `Navn: ${payload.name || ''}\nEmail: ${payload.email || ''}\nTelefon: ${payload.phone || ''}\nBehov: ${payload.need || ''}\n\nBesked:\n${payload.message || ''}`,
-      )
-      window.location.href = `mailto:Jonas.Brodersen@Live.dk?subject=${subject}&body=${body}`
-      setFormStatus('Din mailklient åbnes, så beskeden kan sendes direkte.')
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
+  const [state, handleSubmit] = useForm('xykvvayz')
 
   return (
     <main>
@@ -308,14 +273,17 @@ function App() {
           <label>
             Navn
             <input name="name" type="text" placeholder="Dit navn" required />
+            <ValidationError field="name" errors={state.errors} />
           </label>
           <label>
             Email
             <input name="email" type="email" placeholder="din@email.dk" required />
+            <ValidationError field="email" errors={state.errors} />
           </label>
           <label>
             Telefonnummer
             <input name="phone" type="tel" placeholder="50 22 30 00" />
+            <ValidationError field="phone" errors={state.errors} />
           </label>
           <label>
             Hvad har du brug for?
@@ -329,11 +297,13 @@ function App() {
           <label>
             Besked
             <textarea name="message" rows="5" placeholder="Skriv lidt om projektet" required></textarea>
+            <ValidationError field="message" errors={state.errors} />
           </label>
-          <button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? 'Sender...' : 'Send besked'}
+          <ValidationError errors={state.errors} />
+          <button type="submit" disabled={state.submitting || state.succeeded}>
+            {state.submitting ? 'Sender...' : 'Send besked'}
           </button>
-          {formStatus && <p className="formStatus">{formStatus}</p>}
+          {state.succeeded && <p className="formStatus">Tak. Din besked er sendt - vi vender tilbage hurtigst muligt.</p>}
         </form>
       </section>
 
