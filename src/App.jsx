@@ -52,7 +52,7 @@ const faqItems = [
   },
   {
     question: 'Hvad er prisen?',
-    answer: 'Prisen er 399,- ex. moms pr. måned og faktureres hver 3. måned. Det dækker hjemmesiden, hosting, teknisk drift og almindelig support. Du slipper for en stor opstartsbetaling og får i stedet en fast, overskuelig pris.',
+    answer: 'Prisen er 399,- ex. moms pr. måned og faktureres hver 3. måned. Det dækker en basisside med op til 6 undersider, hosting, teknisk drift og almindelig support. Du slipper for en stor opstartsbetaling og får i stedet en fast, overskuelig pris. Har du brug for et større projekt, aftaler vi omfanget sammen, så løsningen passer til behovet.',
   },
   {
     question: 'Er der binding?',
