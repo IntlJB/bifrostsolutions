@@ -177,6 +177,129 @@ function ContactForm({ compact = false }) {
   )
 }
 
+function HeroLeadForm() {
+  const [state, handleSubmit] = useForm('xykvvayz')
+  const [step, setStep] = useState(1)
+  const [lead, setLead] = useState({
+    company: '',
+    industry: '',
+    name: '',
+    email: '',
+    phone: '',
+  })
+  const [stepError, setStepError] = useState('')
+
+  const updateLead = (field) => (event) => {
+    setLead((current) => ({ ...current, [field]: event.target.value }))
+    setStepError('')
+  }
+
+  const goToContactStep = () => {
+    if (!lead.company.trim() || !lead.industry.trim()) {
+      setStepError('Udfyld firmanavn og branche for at gå videre.')
+      return
+    }
+
+    setStep(2)
+  }
+
+  return (
+    <form className="heroLeadForm" onSubmit={handleSubmit}>
+      <div className="heroLeadIntro">
+        <p className="label">Gratis designudkast</p>
+        <h2>Se din nye hjemmeside før du beslutter dig</h2>
+        <p>
+          Vi designer og opsætter et konkret udkast, så du kan vurdere udtryk,
+          struktur og kvalitet, før du siger ja.
+        </p>
+      </div>
+
+      {step === 1 ? (
+        <div className="heroLeadFields">
+          <label>
+            Firma
+            <input
+              name="company"
+              type="text"
+              value={lead.company}
+              onChange={updateLead('company')}
+              placeholder="Indtast dit firmanavn"
+              required
+            />
+          </label>
+          <label>
+            Branche
+            <input
+              name="industry"
+              type="text"
+              value={lead.industry}
+              onChange={updateLead('industry')}
+              placeholder="Hvilken branche er det?"
+              required
+            />
+          </label>
+          {stepError && <p className="heroLeadError">{stepError}</p>}
+          <button className="nextStepButton" type="button" onClick={goToContactStep} aria-label="Næste trin">
+            →
+          </button>
+        </div>
+      ) : (
+        <div className="heroLeadFields">
+          <input type="hidden" name="company" value={lead.company} />
+          <input type="hidden" name="industry" value={lead.industry} />
+          <label>
+            Navn
+            <input
+              name="name"
+              type="text"
+              value={lead.name}
+              onChange={updateLead('name')}
+              placeholder="Indtast dit navn"
+              required
+            />
+            <ValidationError field="name" errors={state.errors} />
+          </label>
+          <label>
+            E-mail
+            <input
+              name="email"
+              type="email"
+              value={lead.email}
+              onChange={updateLead('email')}
+              placeholder="Indtast din email"
+              required
+            />
+            <ValidationError field="email" errors={state.errors} />
+          </label>
+          <label>
+            Telefon
+            <input
+              name="phone"
+              type="tel"
+              value={lead.phone}
+              onChange={updateLead('phone')}
+              placeholder="Indtast dit telefonnummer"
+              required
+            />
+            <ValidationError field="phone" errors={state.errors} />
+          </label>
+          <ValidationError errors={state.errors} />
+          <button className="heroLeadSubmit" type="submit" disabled={state.submitting || state.succeeded}>
+            {state.submitting ? 'Sender...' : 'Få et gratis designudkast'}
+          </button>
+          <button className="backStepButton" type="button" onClick={() => setStep(1)}>
+            Tilbage
+          </button>
+        </div>
+      )}
+
+      {state.succeeded && (
+        <p className="heroLeadStatus">Tak. Din henvendelse er sendt, og vi vender tilbage hurtigst muligt.</p>
+      )}
+    </form>
+  )
+}
+
 function Hero() {
   return (
     <section className="hero" id="udkast">
@@ -202,6 +325,7 @@ function Hero() {
       <div className="heroVisual">
         <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1100&auto=format&fit=crop&q=84" alt="Rolig arbejdsplads med laptop til en selvstændig virksomhed" />
         <div className="cornerMark"></div>
+        <HeroLeadForm />
         <div className="heroStat">
           <strong>399,-</strong>
           <span>ex. moms pr. måned · faktureres hver 3. måned</span>

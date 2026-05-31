@@ -287,6 +287,137 @@ h3 {
   border-right: 1px solid rgba(255, 255, 255, 0.35);
 }
 
+.heroLeadForm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  display: grid;
+  width: min(430px, calc(100% - 64px));
+  gap: 16px;
+  padding: 26px;
+  border: 1px solid rgba(248, 245, 239, 0.34);
+  background: rgba(248, 245, 239, 0.94);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+  transform: translate(-50%, -50%);
+}
+
+.heroLeadIntro h2 {
+  margin-bottom: 10px;
+  font-size: clamp(1.75rem, 3vw, 2.45rem);
+}
+
+.heroLeadIntro p:not(.label) {
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 0.96rem;
+  line-height: 1.62;
+}
+
+.heroLeadFields {
+  display: grid;
+  gap: 12px;
+}
+
+.heroLeadFields label {
+  display: grid;
+  gap: 7px;
+  color: var(--ink);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.heroLeadFields input {
+  width: 100%;
+  border: 1px solid var(--rule);
+  background: #fffdfa;
+  color: var(--ink);
+  padding: 13px 14px;
+  font-size: 0.95rem;
+  letter-spacing: 0;
+  outline: none;
+  text-transform: none;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.heroLeadFields input:focus {
+  border-color: rgba(184, 135, 74, 0.74);
+  box-shadow: 0 0 0 4px rgba(184, 135, 74, 0.12);
+}
+
+.nextStepButton,
+.heroLeadSubmit,
+.backStepButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  border: 0;
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.nextStepButton {
+  justify-self: end;
+  width: 54px;
+  background: var(--ink);
+  color: var(--cream);
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.heroLeadSubmit {
+  width: 100%;
+  background: var(--ink);
+  color: var(--cream);
+  font-size: 0.78rem;
+}
+
+.backStepButton {
+  width: fit-content;
+  min-height: auto;
+  padding: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.nextStepButton:hover,
+.heroLeadSubmit:hover:not(:disabled) {
+  background: var(--gold);
+  transform: translateY(-1px);
+}
+
+.backStepButton:hover {
+  color: var(--ink);
+}
+
+.heroLeadSubmit:disabled {
+  cursor: wait;
+  opacity: 0.68;
+}
+
+.heroLeadError,
+.heroLeadFields [role='alert'],
+.heroLeadFields .fs-error,
+.heroLeadFields p[id^='error'] {
+  margin: 0;
+  color: #9f2418;
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+.heroLeadStatus {
+  margin: 0;
+  color: #167442;
+  font-weight: 700;
+}
+
 .heroStat {
   position: absolute;
   right: 42px;
@@ -948,6 +1079,10 @@ textarea:focus-visible {
     min-height: 420px;
   }
 
+  .heroLeadForm {
+    width: min(520px, calc(100% - 48px));
+  }
+
   .pricingMain {
     border-bottom: 1px solid var(--rule);
   }
@@ -1032,13 +1167,19 @@ textarea:focus-visible {
   }
 
   .heroVisual {
-    min-height: 320px;
+    min-height: 620px;
   }
 
   .heroStat {
     right: 24px;
-    bottom: 26px;
+    bottom: 22px;
     left: 24px;
+  }
+
+  .heroLeadForm {
+    top: 48%;
+    width: calc(100% - 32px);
+    padding: 22px;
   }
 
   .marqueeTrack span {
