@@ -1,72 +1,67 @@
+import { useState } from 'react'
 import { useForm, ValidationError } from '@formspree/react'
-import heroImage from './assets/bifrost-hero-ios-blue.png'
 import './App.css'
 
-const proofPoints = [
+const marqueeItems = [
   'Gratis designudkast',
-  'Ingen opstartsomkostninger',
-  '399,- ex. moms pr. måned',
+  'Dansk support',
+  'Fast månedspris',
+  'Ingen binding',
+  'Hosting inkluderet',
+  'SSL og drift',
 ]
 
-const benefits = [
-  {
-    title: 'Se siden før du beslutter dig',
-    text: 'Vi laver et gratis udkast til din nye hjemmeside, så du kan mærke udtryk, struktur og indhold, før du siger ja.',
-  },
-  {
-    title: 'Fast lav månedlig pris',
-    text: 'Du betaler 399,- ex. moms pr. måned, når hjemmesiden skal online. Hosting, drift og almindelig support er inkluderet.',
-  },
-  {
-    title: 'Alt det praktiske samlet',
-    text: 'Vi hjælper med design, tekst, mobilvisning, kontaktformular, domæne, DNS og lancering, så du slipper for teknisk bøvl.',
-  },
+const serviceItems = [
+  ['01', 'Professionelt design', 'En hjemmeside der føles gennemarbejdet, tillidsvækkende og tilpasset din branche fra første skærmbillede.'],
+  ['02', 'Hosting og drift', 'Vi holder siden online, opdateret og teknisk sund, så du ikke skal bruge tid på platforme, DNS eller opsætning.'],
+  ['03', 'Sikkerhed som standard', 'SSL, løbende vedligehold og en stabil teknisk opsætning er tænkt ind fra starten.'],
+  ['04', 'Kontakt der virker', 'Tydelige kontaktveje og en formular, der hjælper dine kunder med at tage næste skridt.'],
+  ['05', 'Fast pris', '399,- ex. moms pr. måned, faktureret hver 3. måned. Gennemsigtigt, enkelt og uden dyre opstartsgebyrer.'],
+  ['06', 'Personlig hjælp', 'Du får en dansk kontakt, der hjælper dig trygt fra udkast til lancering og videre drift.'],
 ]
 
 const processSteps = [
-  ['01', 'Fortæl os om din virksomhed', 'Du sender firmanavn, branche og kontaktinfo. Har du en eksisterende side, kigger vi også på den.'],
-  ['02', 'Vi designer et gratis udkast', 'Vi bygger et professionelt forslag med tekster, sektioner og visuel retning til din virksomhed.'],
-  ['03', 'Du gennemgår resultatet', 'Du får mulighed for at se udkastet og vurdere, om det føles rigtigt for din virksomhed.'],
-  ['04', 'Vi går live', 'Når du er tilfreds, gør vi siden klar med domæne, formular og drift til 399,- ex. moms/md.'],
+  ['1', 'Vi lærer virksomheden at kende', 'Du fortæller kort om din branche, kunder og ønsker. Vi omsætter det til en tydelig webfortælling.'],
+  ['2', 'Du får et gratis udkast', 'Vi viser dig retning, struktur og udtryk, før du binder dig til noget.'],
+  ['3', 'Vi finpudser og lancerer', 'Når du er tilfreds, gør vi siden klar med formular, mobilvisning, hosting og domæneopsætning.'],
+  ['4', 'Vi passer på siden', 'Efter lancering holder vi den kørende, så din virksomhed står professionelt frem hver dag.'],
 ]
 
 const includedItems = [
-  'Professionel hjemmeside',
-  'Responsivt design til mobil og desktop',
-  'Tekster og struktur tilpasset din virksomhed',
+  'Skræddersyet webdesign',
+  'Gratis designudkast',
+  'Mobilvenlig opsætning',
   'Kontaktformular',
   'Hosting og teknisk drift',
+  'SSL-certifikat',
   'DNS- og domænehjælp',
   'Løbende support',
   'Ingen binding',
 ]
 
+const collaborationSteps = [
+  ['01', 'Vi starter med din virkelighed', 'Du behøver ikke komme med en færdig plan. Vi spørger ind til din virksomhed, dine kunder og det vigtigste budskab, så siden bliver bygget på noget konkret.'],
+  ['02', 'Du ser retningen før du siger ja', 'Før du betaler for noget, får du et udkast, der viser layout, tone og struktur. Så kan du vurdere, om løsningen føles rigtig for din virksomhed.'],
+  ['03', 'Vi holder det praktiske samlet', 'Når du godkender retningen, samler vi design, tekst, kontaktformular, mobilvisning, hosting og drift i én proces, så du ikke skal koordinere flere leverandører.'],
+]
+
 const faqItems = [
   {
     question: 'Koster designudkastet noget?',
-    answer: 'Nej. Udkastet er gratis og uforpligtende. Du betaler først, hvis du ønsker at få hjemmesiden online.',
+    answer: 'Nej. Designudkastet er gratis og uforpligtende. Formålet er, at du kan se en konkret retning for din hjemmeside, før du beslutter dig. Hvis du ikke ønsker at gå videre, betaler du ikke noget.',
   },
   {
     question: 'Hvad er prisen?',
-    answer: 'Prisen er 399,- ex. moms pr. måned. Løsningen er lavet til virksomheder, der vil online uden store opstartsbetalinger.',
+    answer: 'Prisen er 399,- ex. moms pr. måned og faktureres hver 3. måned. Det dækker hjemmesiden, hosting, teknisk drift og almindelig support. Du slipper for en stor opstartsbetaling og får i stedet en fast, overskuelig pris.',
+  },
+  {
+    question: 'Er der binding?',
+    answer: 'Nej. Løsningen er uden binding, fordi den skal være nem at sige ja til og lige så nem at stoppe igen. Du bliver hos os, fordi siden fungerer, ikke fordi du er låst fast i en lang aftale.',
   },
   {
     question: 'Hvad skal jeg selv levere?',
-    answer: 'Du skal blot fortælle os kort om virksomheden, dine ydelser og ønsket stil. Vi kan hjælpe med både struktur og tekst.',
+    answer: 'Du skal fortælle kort om virksomheden, dine ydelser, hvem dine kunder er, og om der er en bestemt stil, du kan lide. Har du logo, billeder eller eksisterende tekst, kan vi bruge det, men vi kan også hjælpe med struktur og formuleringer fra bunden.',
   },
-  {
-    question: 'Kan jeg få ændringer bagefter?',
-    answer: 'Ja. Almindelige justeringer og løbende hjælp er en del af løsningen, så siden kan følge med din virksomhed.',
-  },
-]
-
-const miniCases = [
-  'Håndværker',
-  'Klinik',
-  'Konsulent',
-  'Servicefirma',
-  'Lokal butik',
-  'Ny virksomhed',
 ]
 
 function LogoMark() {
@@ -79,6 +74,14 @@ function LogoMark() {
   )
 }
 
+function CheckIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="checkIcon">
+      <path d="m20 6-11 11-5-5" />
+    </svg>
+  )
+}
+
 function Nav() {
   return (
     <header className="siteHeader">
@@ -86,18 +89,20 @@ function Nav() {
         <span className="brandMark">
           <LogoMark />
         </span>
-        <span>Bifrostsolutions</span>
+        <span>
+          Bifrost <em>Solutions</em>
+        </span>
       </a>
 
       <nav className="navLinks" aria-label="Primær navigation">
-        <a href="/#udkast">Gratis udkast</a>
-        <a href="/#pris">Pris</a>
+        <a href="/#services">Tjenester</a>
         <a href="/#proces">Proces</a>
+        <a href="/#pris">Pris</a>
         <a href="/#faq">FAQ</a>
       </nav>
 
       <a className="headerCta" href="/#kontakt">
-        Få gratis design
+        Gratis udkast
       </a>
     </header>
   )
@@ -110,10 +115,10 @@ function ContactForm({ compact = false }) {
     <form className={`leadForm ${compact ? 'leadFormCompact' : ''}`} onSubmit={handleSubmit}>
       <div>
         <p className="formKicker">Gratis designudkast</p>
-        <h2>Vil du se din nye hjemmeside?</h2>
+        <h2>Vil du se, hvad din hjemmeside kan blive?</h2>
         <p>
-          Udfyld formularen, så vender vi tilbage med næste skridt. Det er gratis og uden
-          forpligtelser.
+          Send lidt info om din virksomhed. Vi vender tilbage med næste skridt, uden binding
+          og uden opstartsomkostning.
         </p>
       </div>
 
@@ -154,7 +159,7 @@ function ContactForm({ compact = false }) {
         <textarea
           name="message"
           rows="4"
-          placeholder="Skriv evt. om du har en nuværende hjemmeside, domæne eller ønsker til stil."
+          placeholder="Skriv gerne om din nuværende hjemmeside, domæne eller ønskede stil."
         ></textarea>
         <ValidationError field="message" errors={state.errors} />
       </label>
@@ -175,113 +180,71 @@ function ContactForm({ compact = false }) {
 function Hero() {
   return (
     <section className="hero" id="udkast">
-      <div className="heroContent">
-        <p className="eyebrow">Professionelle hjemmesider til danske virksomheder</p>
-        <h1>Få et gratis designudkast til din nye hjemmeside</h1>
+      <div className="heroCopy">
+        <h1>
+          Hjemmesider du kan <em>stole på</em>.
+        </h1>
         <p className="heroText">
-          Bifrostsolutions designer og opsætter din hjemmeside, så du kan se resultatet, før
-          du beslutter dig. Kom online for kun 399,- ex. moms pr. måned.
+          Bifrostsolutions bygger professionelle hjemmesider til danske virksomheder med
+          design, hosting, support og drift samlet i én enkel løsning.
         </p>
-
         <div className="heroActions">
-          <a className="primaryButton" href="#kontakt">
-            Få gratis design
-          </a>
-          <a className="secondaryButton" href="#pris">
-            Se prisen
-          </a>
+          <a className="primaryButton" href="#kontakt">Få et gratis udkast</a>
+          <a className="secondaryButton" href="#pris">Se hvad det koster</a>
         </div>
-
-        <div className="proofList" aria-label="Fordele">
-          {proofPoints.map((point) => (
-            <span key={point}>{point}</span>
-          ))}
+        <div className="trustList" aria-label="Fordele">
+          <span><CheckIcon /> Gratis og uforpligtende designudkast</span>
+          <span><CheckIcon /> Ingen binding eller skjulte opstartsgebyrer</span>
+          <span><CheckIcon /> Dansk support · 24 timers svartid</span>
         </div>
       </div>
 
-      <ContactForm compact />
+      <div className="heroVisual">
+        <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1100&auto=format&fit=crop&q=84" alt="Rolig arbejdsplads med laptop til en selvstændig virksomhed" />
+        <div className="cornerMark"></div>
+        <div className="heroStat">
+          <strong>399,-</strong>
+          <span>ex. moms pr. måned · faktureres hver 3. måned</span>
+        </div>
+      </div>
     </section>
   )
 }
 
-function Benefits() {
-  return (
-    <section className="section">
-      <div className="sectionHeader">
-        <p className="eyebrow">En nemmere vej online</p>
-        <h2>Hjemmesider uden lange processer og store startbetalinger</h2>
-      </div>
+function Marquee() {
+  const items = [...marqueeItems, ...marqueeItems, ...marqueeItems]
 
-      <div className="benefitGrid">
-        {benefits.map((item) => (
-          <article className="featureCard" key={item.title}>
-            <h3>{item.title}</h3>
-            <p>{item.text}</p>
-          </article>
+  return (
+    <div className="marqueeStrip" aria-hidden="true">
+      <div className="marqueeTrack">
+        {items.map((item, index) => (
+          <span key={`${item}-${index}`}>{item}</span>
         ))}
       </div>
-    </section>
+    </div>
   )
 }
 
-function PriceSection() {
+function ServicesSection() {
   return (
-    <section className="priceSection" id="pris">
-      <div className="priceCopy">
-        <p className="eyebrow">Fast pris</p>
-        <h2>Kom online for kun 399,- ex. moms pr. måned</h2>
+    <section className="section servicesSection" id="services">
+      <div className="sectionHeader splitHeader">
+        <div>
+          <span className="rule"></span>
+          <p className="label">Alt inkluderet</p>
+          <h2>
+            Din hjemmeside. Vores <em>ansvar</em>.
+          </h2>
+        </div>
         <p>
-          Vi har gjort det overskueligt at få en moderne hjemmeside. Du slipper for dyre
-          opstartspakker og betaler først, når du ønsker at bruge løsningen.
+          En god hjemmeside skal ikke kun se pæn ud. Den skal skabe tillid, forklare din
+          værdi klart og være stabil nok til, at du kan regne med den hver dag.
         </p>
       </div>
 
-      <article className="priceCard">
-        <span className="priceLabel">Hjemmesidepakke</span>
-        <strong>399,-</strong>
-        <p>ex. moms pr. måned</p>
-        <a className="primaryButton" href="#kontakt">
-          Få gratis design
-        </a>
-      </article>
-    </section>
-  )
-}
-
-function IncludedSection() {
-  return (
-    <section className="section includedSection">
-      <div className="sectionHeader">
-        <p className="eyebrow">Det får du</p>
-        <h2>Alt det din hjemmeside skal bruge</h2>
-        <p>
-          Vi sørger for både design, indhold og teknik, så hjemmesiden er klar til at
-          repræsentere din virksomhed professionelt.
-        </p>
-      </div>
-
-      <div className="includedGrid">
-        {includedItems.map((item) => (
-          <div className="includedItem" key={item}>
-            {item}
-          </div>
-        ))}
-      </div>
-    </section>
-  )
-}
-
-function ProcessSection() {
-  return (
-    <section className="section processSection" id="proces">
-      <div className="sectionHeader">
-        <p className="eyebrow">Sådan fungerer det</p>
-        <h2>Fire enkle trin fra idé til online hjemmeside</h2>
-      </div>
-
-      <div className="processGrid">
-        {processSteps.map(([number, title, text]) => (
-          <article className="processCard" key={number}>
+      <div className="serviceGrid">
+        {serviceItems.map(([number, title, text]) => (
+          <article className="serviceCell" key={number}>
             <span>{number}</span>
             <h3>{title}</h3>
             <p>{text}</p>
@@ -292,44 +255,184 @@ function ProcessSection() {
   )
 }
 
-function ExamplesSection() {
+function ProcessSection() {
   return (
-    <section className="examplesSection">
-      <div className="examplesImage">
-        <img src={heroImage} alt="Eksempel på moderne hjemmesideopsætning fra Bifrostsolutions" />
+    <section className="storySplit" id="proces">
+      <div className="storyImage">
+        <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=1000&auto=format&fit=crop&q=84" alt="Person der arbejder fokuseret på en laptop" />
       </div>
-      <div className="examplesCopy">
-        <p className="eyebrow">Til mange brancher</p>
-        <h2>En professionel side, der passer til din virksomhed</h2>
+      <div className="storyCopy">
+        <span className="rule"></span>
+        <p className="label">Processen</p>
+        <h2>
+          Simpelt. Roligt. <em>Online.</em>
+        </h2>
         <p>
-          Uanset om du sælger ydelser, bookinger eller rådgivning, bygger vi siden med et
-          klart budskab, tydelige kontaktveje og et udtryk, der føles troværdigt for dine kunder.
+          Vi gør processen overskuelig, så du ved, hvad der sker, hvorfor det sker,
+          og hvornår din side er klar til kunder.
         </p>
-        <div className="caseTags">
-          {miniCases.map((item) => (
-            <span key={item}>{item}</span>
+        <ol className="stepsList">
+          {processSteps.map(([number, title, text]) => (
+            <li key={number}>
+              <span>{number}</span>
+              <div>
+                <strong>{title}</strong>
+                <p>{text}</p>
+              </div>
+            </li>
           ))}
+        </ol>
+        <a className="primaryButton" href="#kontakt">Start med et gratis udkast</a>
+      </div>
+    </section>
+  )
+}
+
+function PriceSection() {
+  return (
+    <section className="section priceSection" id="pris">
+      <div className="sectionHeader">
+        <span className="rule"></span>
+        <p className="label">Transparent pris</p>
+        <h2>
+          Én pris. <em>Alt inkluderet.</em>
+        </h2>
+      </div>
+
+      <div className="pricingGrid">
+        <article className="pricingMain">
+          <p className="label">Månedlig pakke</p>
+          <div className="priceDisplay">
+            <span>DKK</span>
+            <strong>399</strong>
+            <span>/ md. ex. moms</span>
+          </div>
+          <p className="priceNote">399,- ex. moms pr. måned · Faktureres hver 3. måned · Gratis designudkast</p>
+          <ul className="includedList">
+            {includedItems.map((item) => (
+              <li key={item}><CheckIcon /> {item}</li>
+            ))}
+          </ul>
+          <a className="primaryButton" href="#kontakt">Kom i gang</a>
+        </article>
+
+        <aside className="pricingAside">
+          <p className="label">Hvorfor det virker</p>
+          <h3>
+            Ingen <em>overraskelser.</em>
+          </h3>
+          <p>
+            Du ved, hvad du betaler, hvad der er inkluderet, og hvem der hjælper dig,
+            hvis noget skal justeres.
+          </p>
+          <div className="asideStats">
+            <div><strong>0,-</strong><span>for designudkastet</span></div>
+            <div><strong>24t</strong><span>typisk svarramme</span></div>
+            <div><strong>1</strong><span>fast månedlig pris</span></div>
+          </div>
+          <a className="goldButton" href="#kontakt">Skriv til os i dag</a>
+        </aside>
+      </div>
+    </section>
+  )
+}
+
+function ProofSection() {
+  return (
+    <section className="section proofSection">
+      <div className="sectionHeader">
+        <span className="rule"></span>
+        <p className="label">Kvalitet i praksis</p>
+        <h2>
+          Når kvaliteten kan mærkes af dine kunder.
+        </h2>
+      </div>
+      <div className="proofLayout">
+        <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1100&auto=format&fit=crop&q=84" alt="Roligt og professionelt kontormiljø med arbejdspladser" />
+        <div>
+          <p>
+            Kvalitet handler ikke kun om farver og flotte billeder. Det handler om, at en
+            besøgende hurtigt forstår hvem du er, hvad du tilbyder, hvorfor du er værd at
+            kontakte, og hvordan de nemt kommer videre.
+          </p>
+          <p>
+            Derfor bygger vi siden med klare sektioner, rolige budskaber, tydelige knapper,
+            god mobilvisning og en teknisk opsætning, der ikke står i vejen for din forretning.
+            Resultatet skal føles professionelt for kunden og overskueligt for dig.
+          </p>
+          <div className="caseTags">
+            <span>Håndværker</span>
+            <span>Klinik</span>
+            <span>Konsulent</span>
+            <span>Servicefirma</span>
+            <span>Lokal butik</span>
+            <span>Ny virksomhed</span>
+          </div>
         </div>
       </div>
     </section>
   )
 }
 
-function FaqSection() {
+function TestimonialsSection() {
   return (
-    <section className="section faqSection" id="faq">
+    <section className="section testimonialsSection">
       <div className="sectionHeader">
-        <p className="eyebrow">Ofte stillede spørgsmål</p>
-        <h2>Det korte svar, før vi tager snakken</h2>
+        <span className="rule"></span>
+        <p className="label">Sådan fungerer samarbejdet</p>
+        <h2>
+          En enkel proces uden teknisk støj.
+        </h2>
+        <p>
+          I stedet for at vise anmeldelser, vi ikke har endnu, forklarer vi præcist, hvad du kan
+          forvente: en rolig proces, et konkret udkast og hjælp til alt det praktiske omkring siden.
+        </p>
       </div>
-
-      <div className="faqGrid">
-        {faqItems.map((item) => (
-          <article className="faqItem" key={item.question}>
-            <h3>{item.question}</h3>
-            <p>{item.answer}</p>
+      <div className="collaborationGrid">
+        {collaborationSteps.map(([number, title, text]) => (
+          <article className="collaborationCard" key={number}>
+            <span>{number}</span>
+            <h3>{title}</h3>
+            <p>{text}</p>
           </article>
         ))}
+      </div>
+    </section>
+  )
+}
+
+function FaqSection() {
+  const [openQuestion, setOpenQuestion] = useState(faqItems[0].question)
+
+  return (
+    <section className="section faqSection" id="faq">
+      <div className="faqIntro">
+        <span className="rule"></span>
+        <p className="label">Spørgsmål og svar</p>
+        <h2>
+          Det korte svar, før vi tager snakken.
+        </h2>
+        <p>
+          Her er de spørgsmål, de fleste stiller først. Mangler du noget, så skriv,
+          og vi svarer konkret.
+        </p>
+        <a className="secondaryButton" href="#kontakt">Kontakt os direkte</a>
+      </div>
+
+      <div className="faqList">
+        {faqItems.map((item) => {
+          const isOpen = openQuestion === item.question
+
+          return (
+            <article className={`faqItem ${isOpen ? 'open' : ''}`} key={item.question}>
+              <button type="button" onClick={() => setOpenQuestion(isOpen ? '' : item.question)}>
+                {item.question}
+                <span>{isOpen ? '−' : '+'}</span>
+              </button>
+              <p>{item.answer}</p>
+            </article>
+          )
+        })}
       </div>
     </section>
   )
@@ -339,15 +442,18 @@ function ContactSection() {
   return (
     <section className="contactSection" id="kontakt">
       <div className="contactCopy">
-        <p className="eyebrow">Kontakt</p>
-        <h2>Få et gratis udkast til din nye hjemmeside</h2>
+        <span className="rule"></span>
+        <p className="label">Tag det første skridt</p>
+        <h2>
+          Klar til en hjemmeside du er <em>stolt af?</em>
+        </h2>
         <p>
-          Send os lidt info om din virksomhed. Vi hjælper dig med en moderne hjemmeside, der
-          er nem at komme i gang med og enkel at holde kørende.
+          Send os lidt info om din virksomhed. Vi vender tilbage med en tydelig proces
+          og et gratis udkast, så du kan mærke kvaliteten før du beslutter dig.
         </p>
         <div className="contactFacts">
           <span>399,- ex. moms/md.</span>
-          <span>Hosting inkluderet</span>
+          <span>Faktureres hver 3. måned</span>
           <span>Ingen binding</span>
         </div>
       </div>
@@ -365,17 +471,20 @@ function Footer() {
           <span className="brandMark">
             <LogoMark />
           </span>
-          <span>Bifrostsolutions</span>
+          <span>
+            Bifrost <em>Solutions</em>
+          </span>
         </a>
-        <p>Bifrostsolutions hjælper danske virksomheder med professionelle hjemmesider til en fast lav månedlig pris.</p>
+        <p>Professionelle hjemmesider til danske virksomheder. Fast pris, ingen binding og drift du kan regne med.</p>
       </div>
 
       <div className="footerLinks">
         <a href="/privatlivspolitik">Privatlivspolitik</a>
         <a href="/cookiepolitik">Cookiepolitik</a>
+        <a href="#kontakt">Kontakt</a>
       </div>
 
-      <p className="footerCompany">Bifrostsolutions · CVR 46504372</p>
+      <p className="footerCompany">Bifrostsolutions · CVR 46504372 · Kontakt nr. +45 50 65 49 00</p>
     </footer>
   )
 }
@@ -387,7 +496,7 @@ function PolicyPage({ type }) {
     <main>
       <Nav />
       <section className="policyPage">
-        <p className="eyebrow">{isPrivacy ? 'Privatliv' : 'Cookies'}</p>
+        <p className="label">{isPrivacy ? 'Privatliv' : 'Cookies'}</p>
         <h1>{isPrivacy ? 'Privatlivspolitik' : 'Cookiepolitik'}</h1>
         {isPrivacy ? (
           <div className="policyContent">
@@ -428,11 +537,12 @@ function HomePage() {
     <main>
       <Nav />
       <Hero />
-      <Benefits />
-      <PriceSection />
-      <IncludedSection />
+      <Marquee />
+      <ServicesSection />
       <ProcessSection />
-      <ExamplesSection />
+      <PriceSection />
+      <ProofSection />
+      <TestimonialsSection />
       <FaqSection />
       <ContactSection />
       <Footer />
