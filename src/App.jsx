@@ -141,6 +141,29 @@ const proofItems = [
   ['Klar på mobil', 'Layout, knapper, tekststørrelser og spacing planlægges til små skærme fra starten.'],
 ]
 
+const designPossibilities = [
+  {
+    title: 'Premium førstehåndsindtryk',
+    text: 'En hero-sektion med stærk visuel identitet, klare budskaber og CTA’er, der føles specialbygget til din branche.',
+    meta: 'Hero · brand · konvertering',
+  },
+  {
+    title: 'Interaktive servicekort',
+    text: 'Ydelser kan vises med bevægelse, dybde og forklarende mikrocopy, så kunden hurtigt forstår forskellen på dine tilbud.',
+    meta: 'Services · hover · struktur',
+  },
+  {
+    title: 'Processer der guider kunden',
+    text: 'Din arbejdsproces kan gøres overskuelig med trin, tidslinjer og tillidsskabende detaljer, så kunden ved hvad der sker.',
+    meta: 'Proces · tillid · overblik',
+  },
+  {
+    title: 'Sider med mere fortælling',
+    text: 'Om os, vision, cases og FAQ kan bygges som rigtige landingssider, ikke bare kedelige tekstblokke nederst på siden.',
+    meta: 'Undersider · SEO · dybde',
+  },
+]
+
 const faqItems = [
   {
     question: 'Koster designudkastet noget?',
@@ -198,10 +221,32 @@ const aboutValues = [
   ['Nærhed', 'Vi bygger til danske virksomheder, der vil have en konkret løsning og en kontakt, der svarer menneskeligt.'],
 ]
 
+const aboutStory = [
+  {
+    title: 'Vi designer til den virkelige hverdag',
+    text: 'Mange virksomheder har ikke brug for en stor bureauproces. De har brug for en hjemmeside, der ser professionel ud, forklarer virksomheden tydeligt og kan holdes opdateret uden at kræve teknisk overskud. Derfor arbejder vi med en praktisk model, hvor design, hosting og drift hænger sammen fra starten.',
+  },
+  {
+    title: 'Vi bygger ikke bare sider. Vi bygger beslutningsveje.',
+    text: 'En god hjemmeside hjælper en besøgende med at gå fra nysgerrighed til kontakt. Det betyder, at hvert afsnit skal have en funktion: skabe tillid, forklare en ydelse, vise næste skridt eller fjerne tvivl. Når designet er gennemtænkt, føles siden rolig for kunden og nem for ejeren.',
+  },
+  {
+    title: 'Vi holder teknikken tæt på designet',
+    text: 'Hosting, SSL, formularer, mobilvisning og domæneopsætning er ikke sekundære detaljer. De er en del af oplevelsen. Hvis teknikken føles tung, bliver hjemmesiden hurtigt en byrde. Vores mål er at gøre den til en tryg base, du kan regne med.',
+  },
+]
+
 const visionPillars = [
   ['Billigt uden at føles billigt', 'Små virksomheder skal kunne få en professionel hjemmeside uden en stor startregning eller lange bindinger.'],
   ['Drift som standard', 'Hosting, SSL og praktisk vedligehold bør ikke være ekstra forvirring. Det skal være en naturlig del af løsningen.'],
   ['Mere ro for ejeren', 'Når hjemmesiden er enkel at forstå og nem at få hjælp til, kan ejeren fokusere på kunderne i stedet for teknikken.'],
+]
+
+const visionRoadmap = [
+  ['01', 'Flere skal kunne starte professionelt', 'Vi vil sænke barrieren for virksomheder, der gerne vil online, men ikke vil starte med et dyrt og uoverskueligt projekt.'],
+  ['02', 'Design skal føles personligt', 'Billig må ikke betyde generisk. Hver side skal have en tydelig retning, så den passer til virksomhedens kunder og tone.'],
+  ['03', 'Drift skal være nemt at forstå', 'Det skal være tydeligt, hvad der er inkluderet, hvordan siden holdes online, og hvem man skriver til, når noget skal ændres.'],
+  ['04', 'Hjemmesider skal kunne vokse', 'En god løsning starter enkelt, men skal kunne udvides med flere sider, mere indhold, cases, FAQ og stærkere SEO, når virksomheden er klar.'],
 ]
 
 function usePageSeo(path) {
@@ -346,10 +391,28 @@ function LeadForm() {
 }
 
 function Hero() {
+  const [heroPointer, setHeroPointer] = useState({ x: 50, y: 50 })
+
+  const handleHeroMove = (event) => {
+    const rect = event.currentTarget.getBoundingClientRect()
+    setHeroPointer({
+      x: ((event.clientX - rect.left) / rect.width) * 100,
+      y: ((event.clientY - rect.top) / rect.height) * 100,
+    })
+  }
+
   return (
-    <section className="hero" id="top">
+    <section
+      className="hero"
+      id="top"
+      onMouseMove={handleHeroMove}
+      style={{ '--cursor-x': `${heroPointer.x}%`, '--cursor-y': `${heroPointer.y}%` }}
+    >
       <img className="heroImage" src="/aurora-launch-hero.png" alt="" aria-hidden="true" />
       <div className="heroShade" />
+      <div className="auroraStream streamOne" aria-hidden="true" />
+      <div className="auroraStream streamTwo" aria-hidden="true" />
+      <div className="heroCursorGlow" aria-hidden="true" />
 
       <div className="heroInner">
         <div className="heroCopy">
@@ -391,6 +454,11 @@ function Hero() {
             <span>Mobilklar</span>
             <span>Support</span>
           </div>
+          <div className="signalMap" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+          </div>
         </aside>
       </div>
 
@@ -400,6 +468,33 @@ function Hero() {
             <strong>{value}</strong>
             <span>{label}</span>
           </div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function PossibilitiesSection() {
+  return (
+    <section className="section possibilitiesSection">
+      <div className="sectionHeader splitHeader">
+        <div>
+          <p className="eyebrow">Hvad er muligt?</p>
+          <h2>Din hjemmeside kan føles levende uden at blive rodet.</h2>
+        </div>
+        <p>
+          Hvis en kunde ønsker et mere designet udtryk, kan vi bygge sider med bevægelse,
+          dybde, tydelige interaktioner og sektioner, der viser virksomheden fra flere vinkler.
+        </p>
+      </div>
+
+      <div className="possibilityGrid">
+        {designPossibilities.map((item) => (
+          <article className="possibilityCard" key={item.title}>
+            <span>{item.meta}</span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
         ))}
       </div>
     </section>
@@ -777,6 +872,17 @@ function AboutPage() {
           ))}
         </div>
       </section>
+      <section className="section deepTextSection">
+        <div className="deepTextGrid">
+          {aboutStory.map((item) => (
+            <article key={item.title}>
+              <p className="eyebrow">Bifrost i praksis</p>
+              <h2>{item.title}</h2>
+              <p>{item.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
       <ContactSection />
       <Footer />
     </main>
@@ -806,6 +912,27 @@ function VisionPage() {
             <article key={title}>
               <h3>{title}</h3>
               <p>{text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+      <section className="section roadmapSection">
+        <div className="sectionHeader">
+          <p className="eyebrow">Retningen fremad</p>
+          <h2>Visionen handler om mere end pris. Den handler om adgang.</h2>
+          <p>
+            Vi vil gøre professionelt webdesign mere tilgængeligt, uden at fjerne kvaliteten,
+            personligheden eller den tekniske tryghed, en virksomhed har brug for.
+          </p>
+        </div>
+        <div className="roadmapList">
+          {visionRoadmap.map(([number, title, text]) => (
+            <article key={number}>
+              <span>{number}</span>
+              <div>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </div>
             </article>
           ))}
         </div>
@@ -867,6 +994,7 @@ function HomePage() {
       <Hero />
       <BridgeSection />
       <SolutionSection />
+      <PossibilitiesSection />
       <TabsSection />
       <AudienceSection />
       <ProcessSection />
