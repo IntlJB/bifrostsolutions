@@ -6,22 +6,17 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://bifrostsolutions.dk/ydelser</loc>
+    <loc>https://bifrostsolutions.dk/faq</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bifrostsolutions.dk/pris</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://bifrostsolutions.dk/fordele</loc>
+    <loc>https://bifrostsolutions.dk/om-os</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bifrostsolutions.dk/info</loc>
+    <loc>https://bifrostsolutions.dk/vision</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

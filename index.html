@@ -6,64 +6,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Få et gratis designudkast til din nye hjemmeside. Bifrostsolutions laver professionelle hjemmesider til danske virksomheder for 399,- ex. moms pr. måned, faktureret hver 3. måned."
+      content="Få en professionel hjemmeside med gratis designudkast, hosting, SSL, support og drift til 399,- ex. moms pr. måned. Ingen binding."
     />
     <meta
       name="keywords"
-      content="gratis designudkast, billig hjemmeside, hjemmeside 399 kr, webdesign, hosting, hjemmeside til små virksomheder, hjemmeside fast pris, Bifrostsolutions"
+      content="billig hjemmeside, hjemmeside med hosting, webdesign fast pris, hjemmeside 399 kr, gratis designudkast, dansk webdesign, hosting små virksomheder, Bifrostsolutions"
     />
     <meta name="author" content="Bifrostsolutions" />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
     <link rel="canonical" href="https://bifrostsolutions.dk/" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="da_DK" />
     <meta property="og:site_name" content="Bifrostsolutions" />
-    <meta property="og:title" content="Gratis designudkast og hjemmeside til 399,- | Bifrostsolutions" />
+    <meta property="og:title" content="Billig hjemmeside med hosting og drift | Bifrostsolutions" />
     <meta
       property="og:description"
-      content="Få en professionel hjemmeside med gratis designudkast, hosting, support og drift til 399,- ex. moms pr. måned, faktureret hver 3. måned."
+      content="Professionel hjemmeside, hosting, SSL og support samlet til 399,- ex. moms pr. måned. Få et gratis designudkast uden binding."
     />
     <meta property="og:url" content="https://bifrostsolutions.dk/" />
     <meta property="og:image" content="https://bifrostsolutions.dk/og-image.png" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Gratis designudkast og hjemmeside til 399,- | Bifrostsolutions" />
+    <meta name="twitter:title" content="Billig hjemmeside med hosting og drift | Bifrostsolutions" />
     <meta
       name="twitter:description"
-      content="Professionel hjemmeside, hosting og drift til små virksomheder for 399,- ex. moms pr. måned, faktureret hver 3. måned."
+      content="Stabile, professionelle hjemmesider til danske virksomheder med design, hosting, support og drift til fast pris."
     />
-    <meta name="theme-color" content="#b8874a" />
-    <title>Gratis designudkast og hjemmeside til 399,- | Bifrostsolutions</title>
+    <meta name="theme-color" content="#071923" />
+    <title>Billig hjemmeside med hosting og drift | Bifrostsolutions</title>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "ProfessionalService",
-        "name": "Bifrostsolutions",
-        "url": "https://bifrostsolutions.dk/",
-        "description": "Bifrostsolutions laver professionelle hjemmesider til små virksomheder med gratis designudkast, fast månedlig pris, webdesign, hosting og drift.",
-        "areaServed": "Danmark",
-        "priceRange": "399 DKK ex. moms pr. måned, faktureret hver 3. måned",
-        "vatID": "DK46504372",
-        "sameAs": ["https://github.com/IntlJB/bifrostsolutions"],
-        "hasOfferCatalog": {
-          "@type": "OfferCatalog",
-          "name": "Hjemmesider og hosting",
-          "itemListElement": [
-            {
-              "@type": "Offer",
-              "name": "Gratis designudkast",
-              "price": "0",
-              "priceCurrency": "DKK",
-              "description": "Gratis og uforpligtende designudkast til en professionel hjemmeside."
-            },
-            {
-              "@type": "Offer",
-              "name": "Hjemmeside med hosting og drift",
-              "price": "399",
-              "priceCurrency": "DKK",
-              "description": "Professionel hjemmeside, hosting, kontaktformular, support og drift til 399 DKK ex. moms pr. måned, faktureret hver 3. måned."
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://bifrostsolutions.dk/#organization",
+            "name": "Bifrostsolutions",
+            "url": "https://bifrostsolutions.dk/",
+            "logo": "https://bifrostsolutions.dk/favicon.svg",
+            "vatID": "DK46504372",
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+45 50 65 49 00",
+              "contactType": "customer support",
+              "areaServed": "DK",
+              "availableLanguage": ["da"]
             }
-          ]
-        }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://bifrostsolutions.dk/#website",
+            "url": "https://bifrostsolutions.dk/",
+            "name": "Bifrostsolutions",
+            "inLanguage": "da-DK",
+            "publisher": {
+              "@id": "https://bifrostsolutions.dk/#organization"
+            }
+          },
+          {
+            "@type": "ProfessionalService",
+            "@id": "https://bifrostsolutions.dk/#service",
+            "name": "Bifrostsolutions",
+            "url": "https://bifrostsolutions.dk/",
+            "description": "Bifrostsolutions laver professionelle hjemmesider til danske virksomheder med gratis designudkast, fast månedlig pris, webdesign, hosting, SSL, support og drift.",
+            "areaServed": "Danmark",
+            "priceRange": "399 DKK ex. moms pr. måned",
+            "provider": {
+              "@id": "https://bifrostsolutions.dk/#organization"
+            },
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": "Hjemmesider og hosting",
+              "itemListElement": [
+                {
+                  "@type": "Offer",
+                  "name": "Gratis designudkast",
+                  "price": "0",
+                  "priceCurrency": "DKK",
+                  "description": "Gratis og uforpligtende designudkast til en professionel hjemmeside."
+                },
+                {
+                  "@type": "Offer",
+                  "name": "Hjemmeside med hosting og drift",
+                  "price": "399",
+                  "priceCurrency": "DKK",
+                  "description": "Professionel hjemmeside, hosting, kontaktformular, support og drift til 399 DKK ex. moms pr. måned."
+                }
+              ]
+            }
+          }
+        ]
       }
     </script>
   </head>
