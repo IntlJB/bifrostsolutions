@@ -17,9 +17,10 @@ export const metadata = {
     description: 'Webdesign, hosting, drift, support og SEO-grundpakke samlet hos Bifrost Solutions.',
     locale: 'da_DK',
     type: 'website',
-    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Bifrost Solutions webdesign, hosting og drift' }],
+    url: 'https://bifrostsolutions.dk/',
+    images: [{ url: '/og-image.webp', width: 1200, height: 630, alt: 'Bifrost Solutions webdesign, hosting og drift' }],
   },
-  twitter: { card: 'summary_large_image', title: 'Hjemmeside til 399 kr. pr. måned', description: 'Design, hosting, drift og SEO samlet i én løsning.', images: ['/og-image.png'] },
+  twitter: { card: 'summary_large_image', title: 'Hjemmeside til 399 kr. pr. måned', description: 'Design, hosting, drift og SEO samlet i én løsning.', images: ['/og-image.webp'] },
 }
 
 export default function RootLayout({ children }) {

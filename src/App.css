@@ -1172,7 +1172,7 @@ h3 {
   padding: 154px clamp(18px, 5vw, 86px) clamp(76px, 9vw, 118px);
   background:
     linear-gradient(90deg, rgba(2, 9, 16, 0.95), rgba(2, 9, 16, 0.54)),
-    url('/aurora-launch-hero.png') center / cover;
+    url('/aurora-launch-hero.webp') center / cover;
   color: var(--paper);
 }
 

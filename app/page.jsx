@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import {
   ArrowRight,
   Check,
@@ -15,15 +16,8 @@ import {
   Zap,
 } from 'lucide-react'
 import BridgeSignal from '@/components/BridgeSignal'
-import MobileNav from '@/components/MobileNav'
 import SiteFooter from '@/components/SiteFooter'
-
-const nav = [
-  ['Løsningen', '#loesning'],
-  ['Overblik', '#overblik'],
-  ['Case', '#case'],
-  ['Pris', '#pris'],
-]
+import SiteHeader from '@/components/SiteHeader'
 
 const included = [
   'Skræddersyet design',
@@ -61,32 +55,6 @@ const faqItems = [
     answer: 'Tidsplanen afhænger af omfang og materiale. En almindelig virksomhedsside kan ofte gå fra første udkast til lancering på få uger, når feedback og indhold er klar.',
   },
 ]
-
-function Brand() {
-  return (
-    <a href="#top" className="flex shrink-0 items-center gap-3 text-[15px] font-semibold tracking-[-0.03em] text-zinc-950 dark:text-zinc-50" aria-label="Bifrost Solutions, gå til toppen">
-      <Image src="/bifrost-mark.svg" alt="" width={32} height={32} priority className="size-8" />
-      Bifrost Solutions
-    </a>
-  )
-}
-
-function Header() {
-  return (
-    <header className="fixed inset-x-0 top-0 z-40 border-b border-zinc-950/10 bg-[#f4f5f3]/85 backdrop-blur-xl dark:border-white/10 dark:bg-[#101112]/85">
-      <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-5 md:px-8 lg:px-12">
-        <Brand />
-        <nav className="hidden items-center gap-7 lg:flex" aria-label="Primær navigation">
-          {nav.map(([label, href]) => <a key={href} href={href} className="text-sm text-zinc-600 transition-colors hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-50">{label}</a>)}
-        </nav>
-        <a href="mailto:kontakt@bifrostsolutions.dk" className="hidden items-center gap-2 whitespace-nowrap rounded-full bg-zinc-950 px-5 py-2.5 text-sm font-semibold text-zinc-50 transition-transform hover:-translate-y-0.5 active:translate-y-px dark:bg-zinc-100 dark:text-zinc-950 lg:flex">
-          Få et gratis udkast <ArrowRight size={15} strokeWidth={1.7} />
-        </a>
-        <MobileNav nav={nav} />
-      </div>
-    </header>
-  )
-}
 
 function Hero() {
   return (
@@ -282,7 +250,7 @@ function CaseSection() {
     <section id="case" className="border-y border-zinc-950/10 dark:border-white/10">
       <div className="mx-auto grid max-w-[1440px] grid-cols-1 lg:grid-cols-[.85fr_1.15fr]">
         <div className="relative min-h-[420px] overflow-hidden lg:min-h-[720px]">
-          <Image src="/bifrost-editorial-bridge.png" alt="Moderne nordisk bro i morgendis" fill sizes="(max-width: 1024px) 100vw, 46vw" className="object-cover" />
+          <Image src="/bifrost-editorial-bridge.webp" alt="Moderne nordisk bro i morgendis" fill sizes="(max-width: 1024px) 100vw, 46vw" className="object-cover" />
         </div>
         <div className="flex items-center px-5 py-20 md:px-12 lg:px-20">
           <figure>
@@ -291,6 +259,7 @@ function CaseSection() {
               “Nu føles hjemmesiden som en del af forretningen. Ikke som endnu en teknisk opgave.”
             </blockquote>
             <figcaption className="mt-10 text-sm text-zinc-500">Frederik<br /><a href="https://carupgrade.dk" className="text-zinc-950 underline decoration-zinc-950/25 underline-offset-4 transition-colors hover:text-[#287872] dark:text-zinc-200 dark:decoration-white/25 dark:hover:text-[#84d8d2]">Carupgrade.dk</a></figcaption>
+            <Link href="/cases" className="mt-10 inline-flex items-center gap-2 text-sm font-semibold text-zinc-950 dark:text-zinc-50">Se alle cases <ArrowRight size={16} /></Link>
           </figure>
         </div>
       </div>
@@ -342,5 +311,5 @@ export default function Page() {
     '@type': 'FAQPage',
     mainEntity: faqItems.map(item => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } })),
   }
-  return <><Header /><main><Hero /><PainSolution /><ValueSection /><SeoSection /><Dashboard /><ProcessSection /><CaseSection /><Pricing /><FaqSection /></main><SiteFooter /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify([structuredData, faqData]) }} /></>
+  return <><SiteHeader /><main><Hero /><PainSolution /><ValueSection /><SeoSection /><Dashboard /><ProcessSection /><CaseSection /><Pricing /><FaqSection /></main><SiteFooter /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify([structuredData, faqData]) }} /></>
 }

@@ -28,7 +28,7 @@ body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-in
   .cookie-consent { padding: 18px; }
   .cookie-consent__content { align-items: stretch; flex-direction: column; gap: 16px; }
   .cookie-consent__actions { width: 100%; }
-  .cookie-consent__actions button { flex: 1; min-width: 0; }
+  .cookie-consent__actions button { flex: 1 1 0; min-width: 0; }
 }
 
 .policy-page { min-height: calc(100dvh - 4rem); padding: 80px 20px 120px; }
