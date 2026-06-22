@@ -16,6 +16,7 @@ import {
 } from 'lucide-react'
 import BridgeSignal from '@/components/BridgeSignal'
 import MobileNav from '@/components/MobileNav'
+import SiteFooter from '@/components/SiteFooter'
 
 const nav = [
   ['Løsningen', '#loesning'],
@@ -320,23 +321,6 @@ function Pricing() {
   )
 }
 
-function Footer() {
-  return (
-    <footer className="border-t border-zinc-950/10 dark:border-white/10">
-      <div className="mx-auto max-w-[1440px] px-5 py-10 md:px-8 lg:px-12">
-        <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
-          <Brand />
-          <div className="flex flex-wrap gap-x-6 gap-y-3 text-sm text-zinc-500">
-            <a href="mailto:kontakt@bifrostsolutions.dk" className="hover:text-zinc-950 dark:hover:text-zinc-50">kontakt@bifrostsolutions.dk</a>
-            <a href="/privatlivspolitik" className="hover:text-zinc-950 dark:hover:text-zinc-50">Privatliv</a>
-            <span>© 2026</span>
-          </div>
-        </div>
-      </div>
-    </footer>
-  )
-}
-
 export default function Page() {
   const structuredData = {
     '@context': 'https://schema.org',
@@ -358,5 +342,5 @@ export default function Page() {
     '@type': 'FAQPage',
     mainEntity: faqItems.map(item => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } })),
   }
-  return <><Header /><main><Hero /><PainSolution /><ValueSection /><SeoSection /><Dashboard /><ProcessSection /><CaseSection /><Pricing /><FaqSection /></main><Footer /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify([structuredData, faqData]) }} /></>
+  return <><Header /><main><Hero /><PainSolution /><ValueSection /><SeoSection /><Dashboard /><ProcessSection /><CaseSection /><Pricing /><FaqSection /></main><SiteFooter /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify([structuredData, faqData]) }} /></>
 }

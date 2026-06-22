@@ -1,4 +1,5 @@
 import { Geist, Geist_Mono } from 'next/font/google'
+import CookieConsent from '../components/CookieConsent'
 import './globals.css'
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-geist' })
@@ -24,7 +25,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="da" className={`${geist.variable} ${geistMono.variable}`}>
-      <body>{children}</body>
+      <body>{children}<CookieConsent /></body>
     </html>
   )
 }
