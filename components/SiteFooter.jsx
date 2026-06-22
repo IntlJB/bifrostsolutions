@@ -13,14 +13,14 @@ export default function SiteFooter() {
             <Image src="/bifrost-mark.svg" alt="" width={32} height={32} className="size-8" />
             Bifrost Solutions
           </Link>
-          <div className="flex max-w-3xl flex-col gap-4 text-sm text-zinc-500 md:items-end">
+          <div className="flex max-w-3xl flex-col gap-4 text-sm text-zinc-500 dark:text-zinc-400 md:items-end">
             <nav className="flex flex-wrap gap-x-6 gap-y-3" aria-label="Juridisk navigation">
               <a href="mailto:kontakt@bifrostsolutions.dk" className={linkClass}>kontakt@bifrostsolutions.dk</a>
               <Link href="/cookiepolitik" className={linkClass}>Cookiepolitik</Link>
               <Link href="/privatlivspolitik" className={linkClass}>Privatlivspolitik</Link>
               <CookieSettingsButton className={`${linkClass} cursor-pointer bg-transparent p-0 text-left font-inherit`} />
             </nav>
-            <p className="m-0 leading-6">Bifrost Solutions · CVR 46504372 · +45 50 65 49 00 · © 2026</p>
+            <p className="m-0 leading-6">Bifrost Solutions, CVR 46504372<br />+45 50 65 49 00, © 2026</p>
           </div>
         </div>
       </div>

@@ -408,7 +408,7 @@ function Hero() {
       onMouseMove={handleHeroMove}
       style={{ '--cursor-x': `${heroPointer.x}%`, '--cursor-y': `${heroPointer.y}%` }}
     >
-      <img className="heroImage" src="/aurora-launch-hero.png" alt="" aria-hidden="true" />
+      <img className="heroImage" src="/aurora-launch-hero.webp" alt="" aria-hidden="true" />
       <div className="heroShade" />
       <div className="auroraStream streamOne" aria-hidden="true" />
       <div className="auroraStream streamTwo" aria-hidden="true" />
